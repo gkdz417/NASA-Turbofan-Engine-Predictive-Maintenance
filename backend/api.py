@@ -63,6 +63,7 @@ def load_ai_artifacts():
         # 2. Test verilerini yükle (Göstermek İçin)
         columns = ['id', 'cycle', 'setting1', 'setting2', 'setting3'] + [f's{i}' for i in range(1, 22)]
         TEST_DATA = pd.read_csv(f"{base_path}/test_FD001.txt", sep=r'\s+', header=None, names=columns)
+        # 3. Gerçek RUL verilerini yükle
         REAL_RUL_DATA = pd.read_csv(f"{base_path}/RUL_FD001.txt", sep=r'\s+', header=None, names=['RUL'])
         print("✅ AI Modeli ve Veriler Başarıyla Belleğe Alındı!")
         

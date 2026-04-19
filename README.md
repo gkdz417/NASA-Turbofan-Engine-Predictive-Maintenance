@@ -1,135 +1,117 @@
-# ✈️ NASA Turbofan Engine — Predictive Maintenance AI Dashboard
+<div align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" alt="NASA Logo" width="120"/>
 
-An AI-powered predictive maintenance platform that estimates the **Remaining Useful Life (RUL)** of turbofan jet engines using Deep Learning. Built with **NASA's CMAPSS open-source dataset**.
+  # ✈️ NASA Jet Engine — Predictive Maintenance AI
+  **A Deep Learning Platform for Turbofan Engine Remaining Useful Life (RUL) Prediction**
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
-![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16-orange?logo=tensorflow)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?logo=fastapi)
+  [![Next.js](https://img.shields.io/badge/Next.js-14.2-black?logo=next.js)](#)
+  [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16-orange?logo=tensorflow)](#)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?logo=fastapi)](#)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  
+  ### 🌍 [Live Demo (Vercel)](https://nasa-turbofan-engine-predictive-mai.vercel.app/)
 
----
-
-## 🚀 Project Overview
-
-In aerospace, predicting when an engine will fail is critical for safety and cost management. This project uses a **Long Short-Term Memory (LSTM)** neural network to analyze time-series sensor data and predict how many flight cycles an engine has left before failure.
-
-### Key Features
-- **Fleet Telemetry Dashboard** — Select any engine (1–100) and get instant AI-powered RUL predictions with degradation charts
-- **Custom Simulation** — Input your own sensor readings to predict RUL for any hypothetical engine
-- **Project Report** — Built-in technical documentation explaining the AI methodology
-- **PDF Export** — Download analysis reports as PDF
-- **Bilingual UI** — Full Turkish / English language support
+  *🇬🇧 English Documentation | 🇹🇷 Türkçe Dokümantasyon*
+</div>
 
 ---
 
-## 🧠 Technical Architecture
+## 🔧 Project Architecture
 
-### Backend (Python / FastAPI)
-| Component | Technology |
-|-----------|-----------|
-| API Framework | FastAPI + Uvicorn |
-| AI Model | TensorFlow / Keras LSTM |
-| Data Processing | Pandas, NumPy, Scikit-learn |
-| Model Architecture | 2× LSTM layers (100 & 50 units) + Dropout (0.2) + Dense |
-| Sequence Length | 50 flight cycles (sliding window) |
+```mermaid
+graph TD
+    subgraph "Data Source"
+        D1[NASA CMAPSS FD001]
+    end
 
-### Frontend (Next.js)
-| Component | Technology |
-|-----------|-----------|
-| Framework | Next.js 14 (App Router) |
-| Styling | TailwindCSS |
-| Charts | Recharts |
-| PDF Generation | jsPDF + html2canvas |
-| Icons | Lucide React |
+    subgraph "Backend (FastAPI & AI)"
+        B1[Pre-processing: EMA & Scaling]
+        B2[Sliding Window: 50 cycles]
+        B3[LSTM Neural Network]
+        B4[RUL Prediction Engine]
+    end
 
-### AI Pipeline
-```
-Raw Sensor Data → MinMaxScaler → Drop Zero-Variance Cols → 
-EMA Smoothing (span=5) → Sliding Window (50 cycles) → 
-LSTM Network → RUL Prediction
+    subgraph "Frontend (Next.js 14)"
+        F1[Fleet Telemetry Dashboard]
+        F2[Custom Simulation UI]
+        F3[PDF Report Generator]
+    end
+
+    D1 --> B1
+    B1 --> B2
+    B2 --> B3
+    B3 --> B4
+    B4 --> F1
+    F1 <--> F2
+    F1 --> F3
 ```
 
 ---
 
-## ⚙️ Installation & Usage
+## 🇹🇷 Türkçe (Turkish)
 
-### Prerequisites
-- Python 3.10+ with pip
-- Node.js 18+ with npm
-- NASA CMAPSS FD001 dataset files (`test_FD001.txt`, `RUL_FD001.txt`, `train_FD001.txt`)
+### 🚀 Proje Sunumu
+Bu proje, havacılık sektöründe kritik öneme sahip olan **Kestirimci Bakım (Predictive Maintenance)** süreçlerini modernize etmek için geliştirilmiştir. NASA'nın CMAPSS veri setini temel alan bu sistem, jet motorlarının sensör verilerini analiz ederek arızadan önceki kalan ömürlerini (RUL) saniyeler içinde hesaplar.
 
-### 1. Clone & Setup Backend
+#### ✨ Öne Çıkan Özellikler
+- **Gerçek Zamanlı Telemetri:** 100 farklı motorun sensör geçmişini ve yapay zeka analizini görselleştirir.
+- **LSTM Tahminleme:** Zaman serisi verilerdeki bozulma paternlerini yakalayan çift yönlü LSTM yapısı.
+- **Esnek Simülasyon:** Teorik verilerle motor sağlığı testi yapabilme imkanı.
+- **Kurumsal Raporlama:** Analiz sonuçlarını PDF formatında dışa aktarma.
+
+---
+
+## 🇬🇧 English
+
+### 🚀 Project Presentation
+This platform is designed to modernize **Predictive Maintenance** in the aerospace industry. By leveraging NASA's CMAPSS dataset, the system analyzes jet engine sensor telemetry to estimate the Remaining Useful Life (RUL) with high precision before any failure occurs.
+
+#### ✨ Key Features
+- **Real-time Telemetry:** Visualize sensor history and AI analytics for 100 different engines.
+- **LSTM Forecasting:** Bidirectional LSTM architecture specifically designed to capture degradation patterns in time-series data.
+- **Flexible Simulation:** Test engine health using custom theoretical sensor inputs.
+- **Enterprise Reporting:** Export detailed analysis results as PDF documents.
+
+---
+
+## 🧠 Technical Deep Dive
+
+### AI Pipeline & Processing
+1.  **Data Cleaning**: Dropping zero-variance sensors and constant operational settings.
+2.  **Smoothing**: Applying **Exponential Moving Average (EMA)** with span=5 to reduce sensor noise.
+3.  **Windowing**: Generating sliding windows of **50 flight cycles** for time-series modeling.
+4.  **Model**: A custom Sequential Keras model featuring **LSTM layers**, **Batch Normalization**, and **Dropout** for robust generalization.
+
+### Tech Stack
+| Tier | Technologies |
+|------|--------------|
+| **AI/ML** | TensorFlow 2.16.1, Keras, Scikit-learn, Pandas |
+| **API** | FastAPI, Uvicorn, Python 3.10 |
+| **Web** | Next.js 14 (App Router), TailwindCSS, Recharts, Lucide |
+| **Cloud** | Vercel (Frontend Deployment) |
+
+---
+
+## ⚙️ Local Installation
+
 ```bash
-git clone https://github.com/your-username/nasa-predictive-maintenance.git
-cd nasa-predictive-maintenance
+# Clone the repository
+git clone https://github.com/gkdz417/NASA-Turbofan-Engine-Predictive-Maintenance.git
 
-# Create virtual environment
-python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # macOS/Linux
+# Setup Backend Dependencies
+cd backend && pip install -r requirements.txt
 
-# Install dependencies
-pip install -r backend/requirements.txt
-```
-
-### 2. Start Backend API
-```bash
-cd backend
+# Start Backend
 uvicorn api:app --reload
-```
-The API will start at `http://localhost:8000`
 
-### 3. Start Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-The dashboard will be available at `http://localhost:3000`
-
----
-
-## 📁 Project Structure
-```
-├── backend/
-│   ├── api.py              # FastAPI endpoints & AI inference
-│   ├── models.py           # Pydantic data models
-│   ├── requirements.txt    # Python dependencies
-│   └── Dockerfile          # Container configuration
-├── frontend/
-│   ├── src/app/
-│   │   ├── page.tsx        # Main dashboard (Landing + Dashboard + Simulation + Docs)
-│   │   ├── locales.ts      # TR/EN translations
-│   │   └── globals.css     # Global styles
-│   └── public/
-│       └── fleet_report.png
-├── nasa_jet_engine_model.keras   # Trained LSTM model
-├── scaler.pkl                     # MinMaxScaler
-├── feature_cols.pkl               # Selected feature columns
-├── drop_cols.pkl                  # Dropped zero-variance columns
-├── test_FD001.txt                 # NASA test dataset
-├── train_FD001.txt                # NASA training dataset
-├── RUL_FD001.txt                  # Ground truth RUL values
-└── README.md
+# Setup Frontend (different terminal)
+cd frontend && npm install && npm run dev
 ```
 
 ---
 
-## 📊 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/` | Health check |
-| `GET` | `/engines` | List available engine IDs |
-| `GET` | `/predict/{motor_id}` | Predict RUL for a specific engine |
-| `POST` | `/predict/custom` | Predict RUL from custom sensor data |
-
----
-
-## 👨‍💻 Author
-
-**Gökdeniz Erten**
-
----
-
-**Disclaimer:** This is an academic project using open-source NASA data to demonstrate time-series forecasting with deep learning. It does not replace certified aerospace safety analytics.
+<div align="center">
+  <b>Developed by <a href="https://github.com/gkdz417">Gökdeniz Erten</a></b>
+  <br>
+  <i>MIT License | Academic Project for Deep Learning Applications</i>
+</div>
