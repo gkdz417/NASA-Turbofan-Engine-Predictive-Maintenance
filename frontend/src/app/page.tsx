@@ -175,68 +175,114 @@ export default function Home() {
 
   if (showLanding) {
     return (
-      <div className="w-full min-h-screen bg-[#f8fafc] flex flex-col justify-center items-center text-slate-800 relative overflow-hidden font-sans selection:bg-[#1a237e] selection:text-white">
+      <div className="w-full h-screen bg-[#f8fafc] flex flex-col justify-between items-center text-slate-800 relative overflow-hidden font-sans selection:bg-[#1a237e] selection:text-white py-6 px-6">
          
-         {/* Arka plan efektleri (Beyaz & Parlament Mavisi) */}
-         <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-[#1a237e]/10 to-transparent pointer-events-none"></div>
-         <div className="absolute -top-40 -right-40 w-[800px] h-[800px] rounded-full bg-blue-600/5 filter blur-[100px] pointer-events-none"></div>
-         <div className="absolute top-60 -left-40 w-[600px] h-[600px] rounded-full bg-indigo-600/5 filter blur-[120px] pointer-events-none"></div>
-         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1a237e 1px, transparent 1px), linear-gradient(90deg, #1a237e 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
+         {/* Background effects */}
+         <div className="absolute top-0 left-0 w-full h-[50%] bg-gradient-to-b from-[#1a237e]/8 to-transparent pointer-events-none"></div>
+         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-600/5 filter blur-[100px] pointer-events-none"></div>
+         <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-600/5 filter blur-[120px] pointer-events-none"></div>
+         <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1a237e 1px, transparent 1px), linear-gradient(90deg, #1a237e 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
 
-         <button onClick={toggleLang} className="absolute top-6 right-6 text-slate-600 hover:text-[#1a237e] flex items-center gap-2 text-sm border border-slate-200 px-4 py-2 cursor-pointer z-50 rounded-full bg-white/80 backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
-           <Globe className="w-4 h-4" /> {t.langText}
-         </button>
+         {/* TOP BAR */}
+         <div className="z-10 w-full max-w-6xl flex items-center justify-between">
+           <div className="flex items-center gap-2">
+             <div className="w-8 h-8 rounded-full bg-[#1a237e]/10 flex items-center justify-center">
+               <Network className="w-4 h-4 text-[#1a237e]"/>
+             </div>
+             <span className="text-xs font-bold text-[#1a237e] uppercase tracking-[0.2em]">NASA CMAPSS · Predictive Maintenance</span>
+           </div>
+           <button onClick={toggleLang} className="text-slate-600 hover:text-[#1a237e] flex items-center gap-2 text-sm border border-slate-200 px-4 py-2 cursor-pointer z-50 rounded-full bg-white/80 backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
+             <Globe className="w-4 h-4" /> {t.langText}
+           </button>
+         </div>
 
-         <div className="z-10 max-w-6xl w-full px-6 flex flex-col items-center text-center -mt-10">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-50 text-[#1a237e] font-bold text-xs uppercase tracking-[0.2em] mb-10 border border-blue-100 shadow-[0_2px_10px_rgba(26,35,126,0.05)]">
-               <Network className="w-4 h-4 text-blue-600"/> Predictive Maintenance Intelligence
+         {/* MAIN CONTENT */}
+         <div className="z-10 max-w-6xl w-full flex flex-col items-center text-center">
+
+            {/* Hook line */}
+            <div className="mb-3 text-base md:text-lg text-slate-500 font-medium italic">
+              &quot;{t.landingSubtitle}&quot; &nbsp;<span className="not-italic font-black text-[#1a237e]">{t.landingAnswer}</span>
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight leading-[1.1] relative">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1a237e] to-blue-600 drop-shadow-md">NASA Jet Fleet</span> <br className="hidden md:block"/>
-              Command Center
+
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-3 tracking-tight leading-[1.1] text-center">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1a237e] to-blue-500">{t.landingTitle}</span>
+              <br/>
+              <span className="text-slate-800">{t.landingTitle2}</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-slate-600 max-w-3xl mb-16 leading-relaxed font-medium">
+            <p className="text-base md:text-lg text-slate-500 max-w-2xl mb-6 leading-relaxed font-medium">
               {t.landingDesc}
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-16 text-left">
-               <div className="bg-white/80 backdrop-blur p-8 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-white hover:border-blue-100 hover:shadow-[0_20px_50px_rgba(26,35,126,0.08)] hover:-translate-y-2 transition-all duration-500 group">
-                  <div className="w-14 h-14 rounded-2xl bg-[#1a237e]/5 text-[#1a237e] flex items-center justify-center mb-6 group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-500">
-                     <Database className="w-7 h-7"/>
+            {/* 3 Feature Cards — compact */}
+            <div className="grid grid-cols-3 gap-4 w-full mb-5 text-left">
+               <div className="bg-white/90 backdrop-blur p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-xl bg-[#1a237e]/8 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                       <Database className="w-4 h-4"/>
+                    </div>
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF1Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-xl mb-3 tracking-tight">CMAPSS Altyapısı</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed font-medium">Model, NASA'nın gerçeğe eşdeğer FD001 veritabanı ile eğitilmiş olup, 100 farklı motorun milyarlarca sensör satırını belleğinde tutar.</p>
+                  <h3 className="font-bold text-slate-900 text-base mb-1">{t.landingF1Title}</h3>
+                  <p className="text-slate-500 text-xs leading-relaxed">{t.landingF1Desc}</p>
                </div>
                
-               <div className="bg-white/80 backdrop-blur p-8 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-white hover:border-blue-100 hover:shadow-[0_20px_50px_rgba(26,35,126,0.08)] hover:-translate-y-2 transition-all duration-500 group">
-                  <div className="w-14 h-14 rounded-2xl bg-[#1a237e]/5 text-[#1a237e] flex items-center justify-center mb-6 group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-500">
-                     <Cpu className="w-7 h-7"/>
+               <div className="bg-white/90 backdrop-blur p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-xl bg-[#1a237e]/8 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                       <Cpu className="w-4 h-4"/>
+                    </div>
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF2Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-xl mb-3 tracking-tight">Sequential Keras</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed font-medium">Bozulma, anlık değil biriken bir süreçtir. Sistem tek bir saniyeye değil, motorun geriye dönük son 50 uçuş profilini inceleyerek hata tespiti yapar.</p>
+                  <h3 className="font-bold text-slate-900 text-base mb-1">{t.landingF2Title}</h3>
+                  <p className="text-slate-500 text-xs leading-relaxed">{t.landingF2Desc}</p>
                </div>
                
-               <div className="bg-white/80 backdrop-blur p-8 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-white hover:border-blue-100 hover:shadow-[0_20px_50px_rgba(26,35,126,0.08)] hover:-translate-y-2 transition-all duration-500 group">
-                  <div className="w-14 h-14 rounded-2xl bg-[#1a237e]/5 text-[#1a237e] flex items-center justify-center mb-6 group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-500">
-                     <Activity className="w-7 h-7"/>
+               <div className="bg-white/90 backdrop-blur p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-xl bg-[#1a237e]/8 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                       <Activity className="w-4 h-4"/>
+                    </div>
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF3Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-xl mb-3 tracking-tight">Custom Network</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed font-medium">Canlı simulasyon sayesinde, dünyanın başka bir yerinden modelini hiç görmediğimiz bir jet motorunu ağa bağlayıp RUL ölçümü alabilirsiniz.</p>
+                  <h3 className="font-bold text-slate-900 text-base mb-1">{t.landingF3Title}</h3>
+                  <p className="text-slate-500 text-xs leading-relaxed">{t.landingF3Desc}</p>
                </div>
             </div>
 
+            {/* How it works — compact horizontal steps */}
+            <div className="w-full bg-white/70 backdrop-blur rounded-2xl border border-slate-100 px-6 py-4 mb-5 flex items-center gap-4">
+              <span className="text-xs font-black text-[#1a237e] uppercase tracking-widest whitespace-nowrap">{t.landingHowTitle}</span>
+              <div className="flex-1 flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="w-6 h-6 rounded-full bg-[#1a237e] text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                  <p className="text-xs text-slate-600">{t.landingStep1}</p>
+                </div>
+                <div className="text-slate-300">→</div>
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="w-6 h-6 rounded-full bg-[#1a237e] text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                  <p className="text-xs text-slate-600">{t.landingStep2}</p>
+                </div>
+                <div className="text-slate-300">→</div>
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="w-6 h-6 rounded-full bg-[#1a237e] text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                  <p className="text-xs text-slate-600">{t.landingStep3}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
             <button 
               onClick={() => setShowLanding(false)}
-              className="bg-[#1a237e] hover:bg-blue-900 text-white font-bold text-lg px-12 py-5 rounded-full shadow-[0_10px_40px_rgba(26,35,126,0.3)] hover:shadow-[0_20px_60px_rgba(26,35,126,0.4)] transition-all hover:-translate-y-1 flex items-center gap-3 group relative overflow-hidden"
+              className="bg-[#1a237e] hover:bg-blue-900 text-white font-bold text-base px-10 py-4 rounded-full shadow-[0_10px_40px_rgba(26,35,126,0.3)] hover:shadow-[0_20px_60px_rgba(26,35,126,0.4)] transition-all hover:-translate-y-1 flex items-center gap-3 group relative overflow-hidden"
             >
               <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-              <Activity className="w-6 h-6 group-hover:scale-110 transition-transform" /> {t.launchBtn}
+              <Activity className="w-5 h-5 group-hover:scale-110 transition-transform" /> {t.launchBtn}
             </button>
          </div>
 
-         <div className="absolute bottom-6 text-slate-400 text-[10px] font-bold tracking-[0.2em] uppercase">
+         {/* FOOTER */}
+         <div className="z-10 text-slate-400 text-[10px] font-bold tracking-[0.2em] uppercase">
             Engineered by <span className="text-[#1a237e] ml-1">Gökdeniz Erten</span>
          </div>
       </div>
@@ -258,8 +304,8 @@ export default function Home() {
               <Network className="text-neonCyan w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] text-neonCyan uppercase tracking-[0.2em] font-bold">NASA CMAPSS</div>
-              <div className="font-semibold text-white tracking-wide text-sm">Predictive Maintenance</div>
+              <div className="text-[10px] text-neonCyan uppercase tracking-[0.2em] font-bold">{t.navBrand1}</div>
+              <div className="font-semibold text-white tracking-wide text-sm">{t.navBrand2}</div>
             </div>
           </div>
           

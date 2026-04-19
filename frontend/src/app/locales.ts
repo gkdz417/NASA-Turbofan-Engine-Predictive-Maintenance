@@ -2,7 +2,9 @@ export const dict = {
   TR: {
     // Genel
     lang: "EN", 
-    langText: "Türkçe",
+    langText: "English",
+    navBrand1: "NASA CMAPSS",
+    navBrand2: "Predictive Maintenance AI",
 
     // Dashboard - Tabs
     tabDashboard: "Filo Telemetrisi",
@@ -42,7 +44,6 @@ export const dict = {
     simDesc: "Canlı sensör verilerinizi girerek yapay zekanın motorunuz için RUL değerini (kalan uçuş döngüsü) hesaplamasını sağlayın.",
     simRandomBtn: "Rastgele (Mantıksal) Veri Üret",
     simCalculateBtn: "Özel Simülasyonu Başlat",
-    // Faz 4 ve UI Fix
     chartTitle: "Telemetri Bozunma Grafiği (Son 50 Döngü)",
     matrixTitle: "Son Ölçeklenen Telemetri Matrix'i",
     customSimLabel: "ÖZEL SİMÜLASYON",
@@ -50,20 +51,39 @@ export const dict = {
     chartInfoDesc: "Mavi çizgi LPC (Düşük Basınç Fırını) ve kırmızı çizgi HPC (Yüksek Basınç Fırını) çıkış sıcaklıklarını temsil eder. Uçuş sayısı arttıkça (sağa doğru), bu değerlerin istikrarsız biçimde tırmanması motor içi mekanik parçaların aşındığını ve ömrünün (RUL) sonuna o kadar hızla yaklaştığını açıkça göstermektedir.",
 
     // Landing Page
-    landingDesc: "Geçmiş sensör telemetrilerini Derin Öğrenme (Deep Learning) ve LSTM ağı ile saniyeler içinde çözerek, milyar dolarlık turbofan motorlarının kesin yorulma sürelerini (RUL) önceden tahmin eden yeni nesil yapay zeka panometresi.",
-    landingCmapssTitle: "CMAPSS Altyapısı",
-    landingCmapssDesc: "Model, NASA'nın gerçeğe eşdeğer FD001 veritabanı ile eğitilmiş olup, 100 farklı motorun milyarlarca sensör satırını belleğinde tutar.",
-    landingKerasTitle: "Sequential Keras",
-    landingKerasDesc: "Bozulma, anlık değil biriken bir süreçtir. Sistem tek bir saniyeye değil, motorun geriye dönük son 50 uçuş profilini inceleyerek hata tespiti yapar.",
-    landingCustomTitle: "Custom Network",
-    landingCustomDesc: "Canlı simulasyon sayesinde, dünyanın başka bir yerinden modelini hiç görmediğimiz bir jet motorunu ağa bağlayıp RUL ölçümü alabilirsiniz.",
-    launchBtn: "Panele Giriş Yap (Launch AI)",
-    returnToLanding: "Sunuma Dön"
+    landingBadge: "Yapay Zeka ile Kestirimci Bakım",
+    landingTitle: "NASA Turbofan Motor",
+    landingTitle2: "Arıza Tahmin Sistemi",
+    landingSubtitle: "Bir uçak motoru arızalanmadan önce sizi uyarabilir mi?",
+    landingAnswer: "Bu sistem uyarıyor.",
+    landingDesc: "NASA'nın gerçek sensör verilerinden eğitilmiş bir Derin Öğrenme modeli, jet motorlarının kaç uçuş sonra bakım gerekeceğini önceden hesaplar. Saniyeler içinde sonuç.",
+
+    // Feature cards
+    landingF1Title: "RUL Nedir?",
+    landingF1Desc: "\"Remaining Useful Life\" — motorun arızalanmadan önce kalan uçuş döngüsü sayısı. Bu sistem tam olarak bunu tahmin eder.",
+    landingF1Tag: "Temel Kavram",
+    landingF2Title: "NASA Verisi ile Eğitildi",
+    landingF2Desc: "100 farklı jet motorundan toplanan milyonlarca sensör ölçümü ile eğitildi. Baskı, sıcaklık, titreşim verileri dahil.",
+    landingF2Tag: "CMAPSS Dataset",
+    landingF3Title: "Derin Öğrenme (LSTM)",
+    landingF3Desc: "Motorun son 50 uçuş geçmişini analiz eden bir LSTM ağı. İnsan gözünün göremeyeceği örüntüleri tespit eder.",
+    landingF3Tag: "AI Mimarisi",
+
+    // How it works steps
+    landingHowTitle: "Nasıl Çalışır?",
+    landingStep1: "Sensörler, motordaki sıcaklık/basınç verilerini uçuş başına ölçer",
+    landingStep2: "Son 50 uçuşun verisi bir matris olarak modele iletilir",
+    landingStep3: "LSTM ağı, bozulma örüntüsünü analiz eder ve RUL tahminler",
+
+    launchBtn: "Paneli Aç — Analizi Başlat",
+    returnToLanding: "Sunuma Dön",
   },
   EN: {
     // General
     lang: "TR",
-    langText: "English",
+    langText: "Türkçe",
+    navBrand1: "NASA CMAPSS",
+    navBrand2: "Predictive Maintenance AI",
 
     // Dashboard - Tabs
     tabDashboard: "Fleet Telemetry",
@@ -103,7 +123,6 @@ export const dict = {
     simDesc: "Enter live sensor data or use the random generator to calculate the real-time Remaining Useful Life (RUL) of your engine via the AI model.",
     simRandomBtn: "Autofill Logical Data",
     simCalculateBtn: "Initialize Custom Simulation",
-    // Phase 4 and UI Fix
     chartTitle: "Telemetry Degradation Plot (Last 50 Cycles)",
     matrixTitle: "Latest Scaled Telemetry Matrix",
     customSimLabel: "CUSTOM SIMULATION",
@@ -111,14 +130,31 @@ export const dict = {
     chartInfoDesc: "The blue line represents LPC and the red line represents HPC outlet temperatures. A continuous or unstable rise in these temperatures across flight cycles directly indicates severe degradation of internal engine components, heavily accelerating the Remaining Useful Life (RUL) towards failure.",
 
     // Landing Page
-    landingDesc: "By resolving historical sensor telemetry with Deep Learning and LSTM networks in seconds, this next-generation AI dashboard predicts the exact Remaining Useful Life (RUL) of billion-dollar turbofan engines.",
-    landingCmapssTitle: "CMAPSS Infrastructure",
-    landingCmapssDesc: "The model is trained with NASA's high-fidelity FD001 database, holding billions of sensor rows from 100 different engines in its memory.",
-    landingKerasTitle: "Sequential Keras",
-    landingKerasDesc: "Degradation is a cumulative process, not instantaneous. The system examines the engine's last 50 flight profiles to detect faults, rather than just a single second.",
-    landingCustomTitle: "Custom Network",
-    landingCustomDesc: "Through live simulation, you can connect a jet engine whose model we've never seen before from anywhere in the world and get RUL measurements.",
-    launchBtn: "Launch AI Dashboard",
-    returnToLanding: "Back to Presentation"
+    landingBadge: "Predictive Maintenance with AI",
+    landingTitle: "NASA Turbofan Engine",
+    landingTitle2: "Failure Prediction System",
+    landingSubtitle: "Can an aircraft engine warn you before it breaks down?",
+    landingAnswer: "This system does.",
+    landingDesc: "A Deep Learning model trained on NASA's real sensor data calculates how many flights remain before a jet engine needs maintenance. Results in seconds.",
+
+    // Feature cards
+    landingF1Title: "What is RUL?",
+    landingF1Desc: "\"Remaining Useful Life\" — the number of flight cycles left before engine failure. This system predicts exactly that.",
+    landingF1Tag: "Core Concept",
+    landingF2Title: "Trained on NASA Data",
+    landingF2Desc: "Trained on millions of sensor readings from 100 real jet engines. Includes pressure, temperature, and vibration data.",
+    landingF2Tag: "CMAPSS Dataset",
+    landingF3Title: "Deep Learning (LSTM)",
+    landingF3Desc: "An LSTM network that analyzes the last 50 flight cycles of an engine, detecting patterns invisible to the human eye.",
+    landingF3Tag: "AI Architecture",
+
+    // How it works steps
+    landingHowTitle: "How Does It Work?",
+    landingStep1: "Sensors measure temperature & pressure data from the engine per flight",
+    landingStep2: "Last 50 flights of data are passed as a matrix to the model",
+    landingStep3: "The LSTM network analyzes degradation patterns and predicts RUL",
+
+    launchBtn: "Open Dashboard — Start Analysis",
+    returnToLanding: "Back to Presentation",
   }
 };
