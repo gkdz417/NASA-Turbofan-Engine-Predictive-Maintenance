@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { AlertTriangle, CheckCircle, Activity, LogOut, Globe, Info, Settings, Database, ArrowDownToLine, Cpu, Network, ChevronDown } from "lucide-react";
 import { dict } from "./locales";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 
@@ -192,10 +192,11 @@ export default function Home() {
       <div className="w-full min-h-screen bg-[#F8FAFC] flex flex-col items-center text-[#1E293B] relative overflow-x-hidden font-sans selection:bg-blue-600 selection:text-white pb-12">
          
          {/* Background effects — light theme subtle glows */}
-         <div className="absolute top-0 left-0 w-full h-[40%] bg-gradient-to-b from-blue-50 to-transparent pointer-events-none"></div>
-         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-100/50 filter blur-[100px] pointer-events-none opacity-60"></div>
-         <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-cyan-100/50 filter blur-[120px] pointer-events-none opacity-50"></div>
-         <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1e3a8a 1px, transparent 1px), linear-gradient(90deg, #1e3a8a 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
+         {/* Background effects — subtle tech grid and glows */}
+         <div className="absolute top-0 left-0 w-full h-[50%] bg-gradient-to-b from-blue-50/50 to-transparent pointer-events-none"></div>
+         <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-blue-200/10 filter blur-[120px] pointer-events-none"></div>
+         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-slate-200/20 filter blur-[100px] pointer-events-none"></div>
+         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1e3a8a 1px, transparent 1px), linear-gradient(90deg, #1e3a8a 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
 
          {/* TOP BAR */}
          <div className="z-10 w-full max-w-6xl flex items-center justify-between px-6 py-6">
@@ -543,7 +544,7 @@ export default function Home() {
           <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-500" id="report-container">
             <div className="lg:col-span-1 flex flex-col gap-6">
               
-              <div className="glass-panel p-8 flex flex-col gap-6 bg-white border border-slate-200 shadow-xl shadow-slate-200/50">
+              <div className="glass-panel p-8 flex flex-col gap-6 bg-white border-t-4 border-[#1A237E] shadow-xl">
                 <div className="flex flex-col gap-3">
                   <label className="text-[10px] text-blue-900 tracking-[0.3em] uppercase font-black flex items-center gap-2">
                     <Activity className="w-4 h-4 text-blue-600" /> {t.targetMotor}
@@ -580,8 +581,8 @@ export default function Home() {
                 )}
               </div>
 
-              <div className="glass-panel p-6 bg-white border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col items-center">
-                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 w-full justify-center">
+              <div className="glass-panel p-6 bg-white border border-slate-200 shadow-xl flex flex-col items-center">
+                <h3 className="text-[10px] font-black text-blue-900 uppercase tracking-widest mb-6 flex items-center justify-center gap-2 w-full bg-slate-50 py-3 rounded-xl border border-slate-100">
                   <Database className="w-4 h-4 text-blue-600"/> {t.fleetStatusTitle}
                 </h3>
                 <div 
@@ -608,7 +609,7 @@ export default function Home() {
                   <p className="text-xs font-black uppercase tracking-[0.3em]">{t.waitingData}</p>
                 </div>
               ) : (
-                <div className="glass-panel p-6 md:p-10 flex flex-col gap-8 bg-white border border-slate-200 shadow-2xl shadow-slate-300/40 relative overflow-hidden rounded-[2rem] w-full">
+                <div className="glass-panel p-6 md:p-10 flex flex-col gap-8 bg-white border-t-4 border-[#1A237E] shadow-2xl relative overflow-hidden rounded-[2rem] w-full">
                   <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-8 border-b border-slate-100 relative z-10">
                     <div className="flex flex-col gap-3">
                       <div className="text-slate-400 uppercase tracking-[0.3em] text-[10px] font-black flex items-center gap-2">
@@ -651,27 +652,51 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* RECHARTS - LIGHT THEME PLOT */}
-                  {result.history && result.history.length > 0 && (
-                    <div className="w-full bg-slate-50 rounded-3xl border border-slate-100 p-6 shadow-inner relative z-10 w-full overflow-hidden">
-                       <h3 className="text-[10px] font-black text-blue-900/60 mb-6 flex items-center gap-2 uppercase tracking-[0.2em]">
-                         <Activity className="text-blue-600 w-4 h-4" /> {t.chartTitle}
-                       </h3>
-                       <div className="h-[250px] w-full text-[10px] font-bold">
+                   {/* RECHARTS - ENHANCED VIBRANT AREA CHART */}
+                   {result.history && result.history.length > 0 && (
+                    <div className="w-full bg-white rounded-3xl border border-slate-200 p-6 shadow-xl relative z-10 w-full overflow-hidden">
+                       <div className="flex items-center justify-between mb-8">
+                          <h3 className="text-[10px] font-black text-blue-900 uppercase tracking-[0.2em] flex items-center gap-2">
+                            <Activity className="text-blue-600 w-4 h-4" /> {t.chartTitle}
+                          </h3>
+                          <div className="flex items-center gap-4">
+                             <div className="flex items-center gap-2">
+                               <div className="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
+                               <span className="text-[9px] font-bold text-slate-500">LPC</span>
+                             </div>
+                             <div className="flex items-center gap-2">
+                               <div className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></div>
+                               <span className="text-[9px] font-bold text-slate-500">HPC</span>
+                             </div>
+                          </div>
+                       </div>
+                       
+                       <div className="h-[300px] w-full">
                           <ResponsiveContainer width="100%" height="100%">
-                            <LineChart data={result.history}>
-                              <CartesianGrid strokeDasharray="4 4" stroke="#e2e8f0" vertical={false} />
-                              <XAxis dataKey="cycle" stroke="#1e293b" tick={{fill: '#64748b'}} tickMargin={10} minTickGap={30} />
-                              <YAxis yAxisId="left" stroke="#1e293b" tick={{fill: '#64748b'}} width={40} />
-                              <YAxis yAxisId="right" orientation="right" stroke="#1e293b" tick={{fill: '#64748b'}} width={40} />
+                           <AreaChart data={result.history}>
+                              <defs>
+                                <linearGradient id="colorLPC" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2}/>
+                                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                                </linearGradient>
+                                <linearGradient id="colorHPC" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="#ef4444" stopOpacity={0.2}/>
+                                  <stop offset="95%" stopColor="#ef4444" stopOpacity={0}/>
+                                </linearGradient>
+                              </defs>
+                              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                              <XAxis dataKey="cycle" stroke="#94a3b8" fontSize={10} fontWeight={700} tickMargin={10} axisLine={false} tickLine={false} />
+                              <YAxis yAxisId="left" fontSize={10} fontWeight={700} stroke="#3b82f6" axisLine={false} tickLine={false} domain={['auto', 'auto']} />
+                              <YAxis yAxisId="right" orientation="right" fontSize={10} fontWeight={700} stroke="#ef4444" axisLine={false} tickLine={false} domain={['auto', 'auto']} />
                               <Tooltip 
-                                contentStyle={{backgroundColor: '#fff', border: '2px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)'}}
-                                itemStyle={{fontSize: '11px', fontWeight: 'bold'}}
-                                labelStyle={{color: '#64748b', fontSize: '10px', marginBottom: '4px'}}
+                                cursor={{ stroke: '#cbd5e1', strokeWidth: 1 }}
+                                contentStyle={{backgroundColor: 'rgba(255,255,255,0.95)', border: 'none', borderRadius: '16px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)', backdropFilter: 'blur(10px)'}}
+                                itemStyle={{fontSize: '11px', fontWeight: '800', padding: '4px 0'}}
+                                labelStyle={{color: '#64748b', fontSize: '10px', marginBottom: '8px', fontWeight: '900', borderBottom: '1px solid #f1f5f9', paddingBottom: '4px'}}
                               />
-                              <Line yAxisId="left" type="monotone" dataKey="s2" name="LPC Temp" stroke="#2563eb" strokeWidth={4} dot={false} activeDot={{r: 6}} />
-                              <Line yAxisId="right" type="monotone" dataKey="s3" name="HPC Temp" stroke="#dc2626" strokeWidth={4} dot={false} activeDot={{r: 6}} />
-                            </LineChart>
+                              <Area yAxisId="left" type="monotone" dataKey="s2" stroke="#3b82f6" strokeWidth={4} fillOpacity={1} fill="url(#colorLPC)" animationDuration={1500} />
+                              <Area yAxisId="right" type="monotone" dataKey="s3" stroke="#ef4444" strokeWidth={4} fillOpacity={1} fill="url(#colorHPC)" animationDuration={1500} />
+                            </AreaChart>
                           </ResponsiveContainer>
                        </div>
                        
@@ -688,7 +713,7 @@ export default function Home() {
                   )}
 
                   <div className="relative z-10 w-full">
-                    <h3 className="text-[10px] font-black text-blue-900/60 mb-6 flex items-center gap-2 uppercase tracking-[0.2em]">
+                    <h3 className="text-[10px] font-black text-blue-900 uppercase tracking-[0.2em] mb-6 flex items-center justify-center gap-2 w-full bg-slate-50 py-3 rounded-xl border border-slate-100">
                       <Database className="text-blue-600 w-4 h-4" /> {t.matrixTitle}
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
