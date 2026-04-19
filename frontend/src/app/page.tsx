@@ -191,8 +191,12 @@ export default function Home() {
              </div>
              <span className="text-xs font-bold text-[#1a237e] uppercase tracking-[0.2em]">NASA CMAPSS · Predictive Maintenance</span>
            </div>
-           <button onClick={toggleLang} className="text-slate-600 hover:text-[#1a237e] flex items-center gap-2 text-sm border border-slate-200 px-4 py-2 cursor-pointer z-50 rounded-full bg-white/80 backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
-             <Globe className="w-4 h-4" /> {t.langText}
+           <button onClick={toggleLang} className="text-slate-600 hover:text-[#1a237e] flex items-center gap-2 text-sm border border-slate-200 px-3 py-1.5 cursor-pointer z-50 rounded-full bg-white/80 backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
+             <Globe className="w-4 h-4" /> 
+             <div className="flex items-center">
+                <span className={`px-2 py-0.5 rounded-full transition-colors ${lang === 'TR' ? 'bg-[#1a237e] text-white' : 'text-slate-500'}`}>TR</span>
+                <span className={`px-2 py-0.5 rounded-full transition-colors ${lang === 'EN' ? 'bg-[#1a237e] text-white' : 'text-slate-500'}`}>EN</span>
+             </div>
            </button>
          </div>
 
@@ -290,12 +294,16 @@ export default function Home() {
   } 
 
   return (
-    <div className="w-full flex flex-col justify-start items-center min-h-screen pt-4 pb-0 px-4 relative bg-[#0b0c10] text-slate-200">
-      <button onClick={toggleLang} className="absolute top-4 right-4 text-slate-400 hover:text-white flex items-center gap-1 text-sm border border-slate-700 px-3 py-1 rounded-full bg-[#151624] z-10 transition-colors shadow-black shadow-lg">
-        <Globe className="w-4 h-4" /> {t.langText}
+    <div className="w-full h-screen flex flex-col justify-start items-center pb-0 relative bg-[#0b0c10] text-slate-200 font-sans overflow-hidden">
+      <button onClick={toggleLang} className="absolute top-4 right-4 text-slate-400 hover:text-white flex items-center gap-2 text-sm border border-slate-700 px-2 py-1 rounded-full bg-[#151624] z-10 transition-colors shadow-black shadow-lg">
+        <Globe className="w-4 h-4 ml-1" />
+        <div className="flex items-center">
+            <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'TR' ? 'bg-neonCyan text-black' : 'text-slate-500'}`}>TR</span>
+            <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'EN' ? 'bg-neonCyan text-black' : 'text-slate-500'}`}>EN</span>
+        </div>
       </button>
 
-      <div className="w-full max-w-7xl flex flex-col gap-6 mt-8">
+      <div className="w-full h-full flex flex-col gap-4 mt-0 overflow-y-auto px-4 pt-4 pb-2">
         
         {/* TOP NAVBAR */}
         <div className="glass-panel px-6 py-4 flex items-center justify-between border-b border-[#1a1b2e] bg-[#0c0d18]">
@@ -328,11 +336,11 @@ export default function Home() {
         </div>
 
         {/* HEADER / HERO TITLE */}
-        <div className="text-center mt-2 mb-2">
-          <h1 className="text-4xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-neonCyan via-blue-400 to-slate-200 mb-2 drop-shadow-sm">
+        <div className="text-center mt-0 mb-0">
+          <h1 className="text-2xl md:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-neonCyan via-blue-400 to-slate-200 mb-1 drop-shadow-sm leading-tight">
             {t.dashTitle}
           </h1>
-          <p className="text-slate-400 text-lg tracking-wide font-light">
+          <p className="text-slate-500 text-xs tracking-widest font-bold uppercase opacity-80">
             {activeTab === "DASHBOARD" ? t.dashDesc : activeTab === "SIMULATION" ? t.simTitle : t.docTitle}
           </p>
         </div>
@@ -702,6 +710,10 @@ export default function Home() {
             </div>
           </div>
         )}
+        {/* FOOTER BRANDING INSIDE SCROLL */}
+        <div className="w-full flex items-center justify-center py-6 mt-8 border-t border-slate-800/50 text-slate-600 text-[9px] font-bold tracking-[0.2em] uppercase">
+          Engineered by <span className="text-neonCyan ml-1.5 mr-3">GÖKDENİZ ERTEN</span> | <span className="ml-3">NASA Predictive Maintenance Network © 2026</span>
+        </div>
       </div>
 
       {showImageModal && (
@@ -725,11 +737,6 @@ export default function Home() {
           </div>
         </div>
       )}
-
-      {/* FOOTER BRANDING */}
-      <div className="w-full flex items-center justify-center py-6 mt-6 border-t border-slate-800/50 text-slate-500 text-[10px] font-bold tracking-[0.2em] uppercase">
-        Engineered by <span className="text-neonCyan ml-1.5 mr-3">GÖKDENİZ ERTEN</span> | <span className="ml-3">NASA Predictive Maintenance Network © 2026</span>
-      </div>
     </div>
   );
 }

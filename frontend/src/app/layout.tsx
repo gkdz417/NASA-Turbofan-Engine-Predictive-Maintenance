@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="flex min-h-screen flex-col items-center justify-between p-8">
+        <main className="flex min-h-screen flex-col">
           {children}
         </main>
       </body>

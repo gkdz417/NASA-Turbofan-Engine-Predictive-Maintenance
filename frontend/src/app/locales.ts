@@ -2,7 +2,7 @@ export const dict = {
   TR: {
     // Genel
     lang: "EN", 
-    langText: "English",
+    langText: "Türkçe",
     navBrand1: "NASA CMAPSS",
     navBrand2: "Predictive Maintenance AI",
 
@@ -81,7 +81,7 @@ export const dict = {
   EN: {
     // General
     lang: "TR",
-    langText: "Türkçe",
+    langText: "English",
     navBrand1: "NASA CMAPSS",
     navBrand2: "Predictive Maintenance AI",
 

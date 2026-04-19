@@ -2,22 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 30, 30, 47;  /* Parliament Mavisi */
-  --background-end-rgb: 11, 12, 16;     /* Koyu Uzay Mavi Siyah */
+  --background-start-rgb: 11, 12, 16;
+  --background-end-rgb: 11, 12, 16;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--background-start-rgb));
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
 }
 
 /* Glassmorphism Box Utilities */
