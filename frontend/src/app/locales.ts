@@ -47,7 +47,18 @@ export const dict = {
     matrixTitle: "Son Ölçeklenen Telemetri Matrix'i",
     customSimLabel: "ÖZEL SİMÜLASYON",
     chartInfoTitle: "Grafik Ne Anlama Geliyor?",
-    chartInfoDesc: "Mavi çizgi LPC (Düşük Basınç Fırını) ve kırmızı çizgi HPC (Yüksek Basınç Fırını) çıkış sıcaklıklarını temsil eder. Uçuş sayısı arttıkça (sağa doğru), bu değerlerin istikrarsız biçimde tırmanması motor içi mekanik parçaların aşındığını ve ömrünün (RUL) sonuna o kadar hızla yaklaştığını açıkça göstermektedir."
+    chartInfoDesc: "Mavi çizgi LPC (Düşük Basınç Fırını) ve kırmızı çizgi HPC (Yüksek Basınç Fırını) çıkış sıcaklıklarını temsil eder. Uçuş sayısı arttıkça (sağa doğru), bu değerlerin istikrarsız biçimde tırmanması motor içi mekanik parçaların aşındığını ve ömrünün (RUL) sonuna o kadar hızla yaklaştığını açıkça göstermektedir.",
+
+    // Landing Page
+    landingDesc: "Geçmiş sensör telemetrilerini Derin Öğrenme (Deep Learning) ve LSTM ağı ile saniyeler içinde çözerek, milyar dolarlık turbofan motorlarının kesin yorulma sürelerini (RUL) önceden tahmin eden yeni nesil yapay zeka panometresi.",
+    landingCmapssTitle: "CMAPSS Altyapısı",
+    landingCmapssDesc: "Model, NASA'nın gerçeğe eşdeğer FD001 veritabanı ile eğitilmiş olup, 100 farklı motorun milyarlarca sensör satırını belleğinde tutar.",
+    landingKerasTitle: "Sequential Keras",
+    landingKerasDesc: "Bozulma, anlık değil biriken bir süreçtir. Sistem tek bir saniyeye değil, motorun geriye dönük son 50 uçuş profilini inceleyerek hata tespiti yapar.",
+    landingCustomTitle: "Custom Network",
+    landingCustomDesc: "Canlı simulasyon sayesinde, dünyanın başka bir yerinden modelini hiç görmediğimiz bir jet motorunu ağa bağlayıp RUL ölçümü alabilirsiniz.",
+    launchBtn: "Panele Giriş Yap (Launch AI)",
+    returnToLanding: "Sunuma Dön"
   },
   EN: {
     // General
@@ -97,6 +108,17 @@ export const dict = {
     matrixTitle: "Latest Scaled Telemetry Matrix",
     customSimLabel: "CUSTOM SIMULATION",
     chartInfoTitle: "What does this graph mean?",
-    chartInfoDesc: "The blue line represents LPC and the red line represents HPC outlet temperatures. A continuous or unstable rise in these temperatures across flight cycles directly indicates severe degradation of internal engine components, heavily accelerating the Remaining Useful Life (RUL) towards failure."
+    chartInfoDesc: "The blue line represents LPC and the red line represents HPC outlet temperatures. A continuous or unstable rise in these temperatures across flight cycles directly indicates severe degradation of internal engine components, heavily accelerating the Remaining Useful Life (RUL) towards failure.",
+
+    // Landing Page
+    landingDesc: "By resolving historical sensor telemetry with Deep Learning and LSTM networks in seconds, this next-generation AI dashboard predicts the exact Remaining Useful Life (RUL) of billion-dollar turbofan engines.",
+    landingCmapssTitle: "CMAPSS Infrastructure",
+    landingCmapssDesc: "The model is trained with NASA's high-fidelity FD001 database, holding billions of sensor rows from 100 different engines in its memory.",
+    landingKerasTitle: "Sequential Keras",
+    landingKerasDesc: "Degradation is a cumulative process, not instantaneous. The system examines the engine's last 50 flight profiles to detect faults, rather than just a single second.",
+    landingCustomTitle: "Custom Network",
+    landingCustomDesc: "Through live simulation, you can connect a jet engine whose model we've never seen before from anywhere in the world and get RUL measurements.",
+    launchBtn: "Launch AI Dashboard",
+    returnToLanding: "Back to Presentation"
   }
 };

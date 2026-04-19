@@ -198,7 +198,7 @@ export default function Home() {
             </h1>
             
             <p className="text-lg md:text-xl text-slate-600 max-w-3xl mb-16 leading-relaxed font-medium">
-              Geçmiş sensör telemetrilerini <strong className="text-[#1a237e]">Derin Öğrenme (Deep Learning)</strong> ve <strong className="text-blue-600">LSTM ağı</strong> ile saniyeler içinde çözerek, milyar dolarlık turbofan motorlarının kesin yorulma sürelerini (RUL) önceden tahmin eden yeni nesil yapay zeka panometresi.
+              {t.landingDesc}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-16 text-left">
@@ -232,7 +232,7 @@ export default function Home() {
               className="bg-[#1a237e] hover:bg-blue-900 text-white font-bold text-lg px-12 py-5 rounded-full shadow-[0_10px_40px_rgba(26,35,126,0.3)] hover:shadow-[0_20px_60px_rgba(26,35,126,0.4)] transition-all hover:-translate-y-1 flex items-center gap-3 group relative overflow-hidden"
             >
               <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-              <Activity className="w-6 h-6 group-hover:scale-110 transition-transform" /> Panele Giriş Yap (Launch AI)
+              <Activity className="w-6 h-6 group-hover:scale-110 transition-transform" /> {t.launchBtn}
             </button>
          </div>
 
@@ -277,7 +277,7 @@ export default function Home() {
 
           <button onClick={handleLogout} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors border border-slate-800 hover:border-slate-600 px-3 py-1.5 rounded-lg bg-[#111222]">
             <LogOut className="w-4 h-4 rotate-180" />
-            <span className="hidden sm:inline text-sm font-medium">Sunuma Dön</span>
+            <span className="hidden sm:inline text-sm font-medium">{t.returnToLanding}</span>
           </button>
         </div>
 
