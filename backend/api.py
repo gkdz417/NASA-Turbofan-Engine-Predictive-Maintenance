@@ -55,7 +55,14 @@ def load_ai_artifacts():
         
         # 1. Modeli ve Scaler'ı yükle
         print("🧠 AI Modeli Yükleniyor...")
-        MODEL = load_model(f"{base_path}/nasa_jet_engine_model.keras")
+        # TensorFlow/Keras 3 kronik 'quantization_config' yükleme hatasını aşmak için:
+        from tensorflow.keras.layers import Dense
+        class CustomDense(Dense):
+            def __init__(self, **kwargs):
+                kwargs.pop('quantization_config', None)
+                super().__init__(**kwargs)
+                
+        MODEL = load_model(f"{base_path}/nasa_jet_engine_model.keras", custom_objects={'Dense': CustomDense})
         SCALER = joblib.load(f"{base_path}/scaler.pkl")
         FEATURE_COLS = joblib.load(f"{base_path}/feature_cols.pkl")
         DROP_COLS = joblib.load(f"{base_path}/drop_cols.pkl")
