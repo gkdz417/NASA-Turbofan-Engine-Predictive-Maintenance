@@ -21,6 +21,8 @@ export default function Home() {
   const [simLoading, setSimLoading] = useState(false);
   const [simResult, setSimResult] = useState<any>(null);
 
+  const [isTakingLong, setIsTakingLong] = useState(false);
+
   const [user, setUser] = useState<string | null>("Misafir"); // Varsayılan ziyaretçi
   const [showImageModal, setShowImageModal] = useState(false);
   const [lang, setLang] = useState<"TR" | "EN">("TR");
@@ -54,12 +56,17 @@ export default function Home() {
     }
     
     setLoading(true);
+    setIsTakingLong(false);
+    const timeoutId = setTimeout(() => setIsTakingLong(true), 3000);
+
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
       const response = await fetch(`${apiUrl}/predict/${motorId}`);
       if (!response.ok) {
         alert(t.limitError);
         setLoading(false);
+        clearTimeout(timeoutId);
+        setIsTakingLong(false);
         return;
       }
       const data = await response.json();
@@ -68,6 +75,8 @@ export default function Home() {
       console.error(error);
       alert(t.apiError);
     } finally {
+      clearTimeout(timeoutId);
+      setIsTakingLong(false);
       setLoading(false);
     }
   };
@@ -150,6 +159,9 @@ export default function Home() {
   const handleCustomSimulation = async () => {
     setSimLoading(true);
     setSimResult(null);
+    setIsTakingLong(false);
+    const timeoutId = setTimeout(() => setIsTakingLong(true), 3000);
+
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
       const response = await fetch(`${apiUrl}/predict/custom`, {
@@ -163,6 +175,8 @@ export default function Home() {
     } catch (error) {
       alert(t.apiError);
     } finally {
+      clearTimeout(timeoutId);
+      setIsTakingLong(false);
       setSimLoading(false);
     }
   };
@@ -175,27 +189,27 @@ export default function Home() {
 
   if (showLanding) {
     return (
-      <div className="w-full h-screen bg-[#f8fafc] flex flex-col justify-between items-center text-slate-800 relative overflow-hidden font-sans selection:bg-[#1a237e] selection:text-white py-6 px-6">
+      <div className="w-full h-screen bg-[#0b0c10] flex flex-col justify-between items-center text-slate-200 relative overflow-hidden font-sans selection:bg-neonCyan selection:text-black py-6 px-6">
          
-         {/* Background effects */}
-         <div className="absolute top-0 left-0 w-full h-[50%] bg-gradient-to-b from-[#1a237e]/8 to-transparent pointer-events-none"></div>
-         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-600/5 filter blur-[100px] pointer-events-none"></div>
-         <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-600/5 filter blur-[120px] pointer-events-none"></div>
-         <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1a237e 1px, transparent 1px), linear-gradient(90deg, #1a237e 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
+         {/* Background effects — dark theme */}
+         <div className="absolute top-0 left-0 w-full h-[50%] bg-gradient-to-b from-[#1a237e]/15 to-transparent pointer-events-none"></div>
+         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-neonCyan/5 filter blur-[100px] pointer-events-none"></div>
+         <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-blue-600/5 filter blur-[120px] pointer-events-none"></div>
+         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1a237e 1px, transparent 1px), linear-gradient(90deg, #1a237e 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
 
          {/* TOP BAR */}
          <div className="z-10 w-full max-w-6xl flex items-center justify-between">
            <div className="flex items-center gap-2">
-             <div className="w-8 h-8 rounded-full bg-[#1a237e]/10 flex items-center justify-center">
-               <Network className="w-4 h-4 text-[#1a237e]"/>
+             <div className="w-8 h-8 rounded-full bg-neonCyan/10 flex items-center justify-center border border-neonCyan/20">
+               <Network className="w-4 h-4 text-neonCyan"/>
              </div>
-             <span className="text-xs font-bold text-[#1a237e] uppercase tracking-[0.2em]">NASA CMAPSS · Predictive Maintenance</span>
+             <span className="text-xs font-bold text-neonCyan uppercase tracking-[0.2em]">NASA CMAPSS · Predictive Maintenance</span>
            </div>
-           <button onClick={toggleLang} className="text-slate-600 hover:text-[#1a237e] flex items-center gap-2 text-sm border border-slate-200 px-3 py-1.5 cursor-pointer z-50 rounded-full bg-white/80 backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
+           <button onClick={toggleLang} className="text-slate-400 hover:text-white flex items-center gap-2 text-sm border border-slate-700 px-3 py-1.5 cursor-pointer z-50 rounded-full bg-[#151624] backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
              <Globe className="w-4 h-4" /> 
              <div className="flex items-center">
-                <span className={`px-2 py-0.5 rounded-full transition-colors ${lang === 'TR' ? 'bg-[#1a237e] text-white' : 'text-slate-500'}`}>TR</span>
-                <span className={`px-2 py-0.5 rounded-full transition-colors ${lang === 'EN' ? 'bg-[#1a237e] text-white' : 'text-slate-500'}`}>EN</span>
+                <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'TR' ? 'bg-neonCyan text-black' : 'text-slate-500'}`}>TR</span>
+                <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'EN' ? 'bg-neonCyan text-black' : 'text-slate-500'}`}>EN</span>
              </div>
            </button>
          </div>
@@ -204,73 +218,73 @@ export default function Home() {
          <div className="z-10 max-w-6xl w-full flex flex-col items-center text-center">
 
             {/* Hook line */}
-            <div className="mb-3 text-base md:text-lg text-slate-500 font-medium italic">
-              &quot;{t.landingSubtitle}&quot; &nbsp;<span className="not-italic font-black text-[#1a237e]">{t.landingAnswer}</span>
+            <div className="mb-3 text-base md:text-lg text-slate-400 font-medium italic">
+              &quot;{t.landingSubtitle}&quot; &nbsp;<span className="not-italic font-black text-neonCyan">{t.landingAnswer}</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-3 tracking-tight leading-[1.1] text-center">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1a237e] to-blue-500">{t.landingTitle}</span>
+            <h1 className="text-4xl md:text-6xl font-black mb-3 tracking-tight leading-[1.1] text-center">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan via-blue-400 to-slate-200">{t.landingTitle}</span>
               <br/>
-              <span className="text-slate-800">{t.landingTitle2}</span>
+              <span className="text-white">{t.landingTitle2}</span>
             </h1>
             
-            <p className="text-base md:text-lg text-slate-500 max-w-2xl mb-6 leading-relaxed font-medium">
+            <p className="text-base md:text-lg text-slate-400 max-w-2xl mb-6 leading-relaxed font-medium">
               {t.landingDesc}
             </p>
 
-            {/* 3 Feature Cards — compact */}
+            {/* 3 Feature Cards — dark */}
             <div className="grid grid-cols-3 gap-4 w-full mb-5 text-left">
-               <div className="bg-white/90 backdrop-blur p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+               <div className="glass-panel p-5 rounded-2xl hover:border-neonCyan/30 hover:shadow-[0_0_20px_rgba(0,229,255,0.05)] hover:-translate-y-1 transition-all duration-300 group">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-xl bg-[#1a237e]/8 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                    <div className="w-8 h-8 rounded-xl bg-neonCyan/10 text-neonCyan flex items-center justify-center group-hover:bg-neonCyan group-hover:text-black transition-colors duration-300">
                        <Database className="w-4 h-4"/>
                     </div>
-                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF1Tag}</span>
+                    <span className="text-[10px] font-bold text-neonCyan uppercase tracking-widest">{t.landingF1Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1">{t.landingF1Title}</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">{t.landingF1Desc}</p>
+                  <h3 className="font-bold text-white text-base mb-1">{t.landingF1Title}</h3>
+                  <p className="text-slate-400 text-xs leading-relaxed">{t.landingF1Desc}</p>
                </div>
                
-               <div className="bg-white/90 backdrop-blur p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+               <div className="glass-panel p-5 rounded-2xl hover:border-neonCyan/30 hover:shadow-[0_0_20px_rgba(0,229,255,0.05)] hover:-translate-y-1 transition-all duration-300 group">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-xl bg-[#1a237e]/8 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                    <div className="w-8 h-8 rounded-xl bg-neonCyan/10 text-neonCyan flex items-center justify-center group-hover:bg-neonCyan group-hover:text-black transition-colors duration-300">
                        <Cpu className="w-4 h-4"/>
                     </div>
-                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF2Tag}</span>
+                    <span className="text-[10px] font-bold text-neonCyan uppercase tracking-widest">{t.landingF2Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1">{t.landingF2Title}</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">{t.landingF2Desc}</p>
+                  <h3 className="font-bold text-white text-base mb-1">{t.landingF2Title}</h3>
+                  <p className="text-slate-400 text-xs leading-relaxed">{t.landingF2Desc}</p>
                </div>
                
-               <div className="bg-white/90 backdrop-blur p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+               <div className="glass-panel p-5 rounded-2xl hover:border-neonCyan/30 hover:shadow-[0_0_20px_rgba(0,229,255,0.05)] hover:-translate-y-1 transition-all duration-300 group">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-xl bg-[#1a237e]/8 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                    <div className="w-8 h-8 rounded-xl bg-neonCyan/10 text-neonCyan flex items-center justify-center group-hover:bg-neonCyan group-hover:text-black transition-colors duration-300">
                        <Activity className="w-4 h-4"/>
                     </div>
-                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF3Tag}</span>
+                    <span className="text-[10px] font-bold text-neonCyan uppercase tracking-widest">{t.landingF3Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1">{t.landingF3Title}</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">{t.landingF3Desc}</p>
+                  <h3 className="font-bold text-white text-base mb-1">{t.landingF3Title}</h3>
+                  <p className="text-slate-400 text-xs leading-relaxed">{t.landingF3Desc}</p>
                </div>
             </div>
 
-            {/* How it works — compact horizontal steps */}
-            <div className="w-full bg-white/70 backdrop-blur rounded-2xl border border-slate-100 px-6 py-4 mb-5 flex items-center gap-4">
-              <span className="text-xs font-black text-[#1a237e] uppercase tracking-widest whitespace-nowrap">{t.landingHowTitle}</span>
+            {/* How it works — dark horizontal steps */}
+            <div className="w-full glass-panel px-6 py-4 mb-5 flex items-center gap-4 rounded-2xl">
+              <span className="text-xs font-black text-neonCyan uppercase tracking-widest whitespace-nowrap">{t.landingHowTitle}</span>
               <div className="flex-1 flex items-center gap-2">
                 <div className="flex items-center gap-2 flex-1">
-                  <span className="w-6 h-6 rounded-full bg-[#1a237e] text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
-                  <p className="text-xs text-slate-600">{t.landingStep1}</p>
+                  <span className="w-6 h-6 rounded-full bg-neonCyan text-black text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                  <p className="text-xs text-slate-400">{t.landingStep1}</p>
                 </div>
-                <div className="text-slate-300">→</div>
+                <div className="text-slate-600">→</div>
                 <div className="flex items-center gap-2 flex-1">
-                  <span className="w-6 h-6 rounded-full bg-[#1a237e] text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
-                  <p className="text-xs text-slate-600">{t.landingStep2}</p>
+                  <span className="w-6 h-6 rounded-full bg-neonCyan text-black text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                  <p className="text-xs text-slate-400">{t.landingStep2}</p>
                 </div>
-                <div className="text-slate-300">→</div>
+                <div className="text-slate-600">→</div>
                 <div className="flex items-center gap-2 flex-1">
-                  <span className="w-6 h-6 rounded-full bg-[#1a237e] text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
-                  <p className="text-xs text-slate-600">{t.landingStep3}</p>
+                  <span className="w-6 h-6 rounded-full bg-neonCyan text-black text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                  <p className="text-xs text-slate-400">{t.landingStep3}</p>
                 </div>
               </div>
             </div>
@@ -278,24 +292,31 @@ export default function Home() {
             {/* CTA Button */}
             <button 
               onClick={() => setShowLanding(false)}
-              className="bg-[#1a237e] hover:bg-blue-900 text-white font-bold text-base px-10 py-4 rounded-full shadow-[0_10px_40px_rgba(26,35,126,0.3)] hover:shadow-[0_20px_60px_rgba(26,35,126,0.4)] transition-all hover:-translate-y-1 flex items-center gap-3 group relative overflow-hidden"
+              className="bg-neonCyan hover:bg-cyan-400 text-black font-bold text-base px-10 py-4 rounded-full shadow-[0_0_40px_rgba(0,229,255,0.3)] hover:shadow-[0_0_60px_rgba(0,229,255,0.5)] transition-all hover:-translate-y-1 flex items-center gap-3 group relative overflow-hidden"
             >
-              <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
               <Activity className="w-5 h-5 group-hover:scale-110 transition-transform" /> {t.launchBtn}
             </button>
          </div>
 
          {/* FOOTER */}
-         <div className="z-10 text-slate-400 text-[10px] font-bold tracking-[0.2em] uppercase">
-            Engineered by <span className="text-[#1a237e] ml-1">Gökdeniz Erten</span>
+         <div className="z-10 text-slate-500 text-[10px] font-bold tracking-[0.2em] uppercase">
+            Engineered by <span className="text-neonCyan ml-1">Gökdeniz Erten</span>
          </div>
       </div>
     );
   } 
 
   return (
-    <div className="w-full h-screen flex flex-col justify-start items-center pb-0 relative bg-[#0b0c10] text-slate-200 font-sans overflow-hidden">
-      <button onClick={toggleLang} className="absolute top-4 right-4 text-slate-400 hover:text-white flex items-center gap-2 text-sm border border-slate-700 px-2 py-1 rounded-full bg-[#151624] z-10 transition-colors shadow-black shadow-lg">
+    <div className="w-full h-screen bg-[#0b0c10] text-slate-200 font-sans relative overflow-hidden selection:bg-neonCyan selection:text-black">
+      
+      {/* GLOBAL BACKGROUND EFFECTS (Shared with Landing) */}
+      <div className="absolute top-0 left-0 w-full h-[30%] bg-gradient-to-b from-[#1a237e]/15 to-transparent pointer-events-none"></div>
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-neonCyan/5 filter blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-blue-600/5 filter blur-[120px] pointer-events-none"></div>
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1a237e 1px, transparent 1px), linear-gradient(90deg, #1a237e 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
+
+      {/* LANGUAGE TOGGLE (Sticky-ish) */}
+      <button onClick={toggleLang} className="absolute top-4 right-4 text-slate-400 hover:text-white flex items-center gap-2 text-sm border border-slate-700 px-2 py-1 rounded-full bg-[#151624]/80 backdrop-blur-md z-50 transition-colors shadow-black shadow-lg">
         <Globe className="w-4 h-4 ml-1" />
         <div className="flex items-center">
             <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'TR' ? 'bg-neonCyan text-black' : 'text-slate-500'}`}>TR</span>
@@ -303,10 +324,12 @@ export default function Home() {
         </div>
       </button>
 
-      <div className="w-full h-full flex flex-col gap-4 mt-0 overflow-y-auto px-4 pt-4 pb-2">
+      {/* MAIN SINGLE SCROLLABLE CONTAINER */}
+      <div className="w-full h-full overflow-y-auto px-4 pt-4 pb-32 relative z-10 flex flex-col items-center">
         
         {/* TOP NAVBAR */}
-        <div className="glass-panel px-6 py-4 flex items-center justify-between border-b border-[#1a1b2e] bg-[#0c0d18]">
+        <div className="w-full max-w-7xl glass-panel px-6 py-4 flex items-center justify-between border-b border-[#1a1b2e] bg-[#0c0d18]/80 backdrop-blur-md mb-6">
+
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-900/50 flex items-center justify-center border border-neonCyan shadow-[0_0_15px_rgba(0,229,255,0.2)]">
               <Network className="text-neonCyan w-5 h-5" />
@@ -336,18 +359,18 @@ export default function Home() {
         </div>
 
         {/* HEADER / HERO TITLE */}
-        <div className="text-center mt-0 mb-0">
-          <h1 className="text-2xl md:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-neonCyan via-blue-400 to-slate-200 mb-1 drop-shadow-sm leading-tight">
+        <div className="w-full max-w-7xl text-center mt-2 mb-8">
+          <h1 className="text-3xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-neonCyan via-blue-400 to-slate-200 mb-2 drop-shadow-sm leading-tight">
             {t.dashTitle}
           </h1>
-          <p className="text-slate-500 text-xs tracking-widest font-bold uppercase opacity-80">
+          <p className="text-slate-500 text-sm tracking-[0.3em] font-bold uppercase opacity-80">
             {activeTab === "DASHBOARD" ? t.dashDesc : activeTab === "SIMULATION" ? t.simTitle : t.docTitle}
           </p>
         </div>
 
         {/* ===================== TAB CONTENT: DOCS ===================== */}
         {activeTab === "DOCS" && (
-          <div className="glass-panel p-8 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700 bg-gradient-to-b from-[#090a12] to-[#0b0c14] relative overflow-hidden group/docs">
+          <div className="w-full max-w-7xl glass-panel p-8 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700 bg-gradient-to-b from-[#090a12] to-[#0b0c14] relative group/docs">
             
             {/* Arka Plan Efektleri */}
             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(#203864 1px, transparent 1px), linear-gradient(90deg, #203864 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
@@ -431,7 +454,7 @@ export default function Home() {
 
         {/* ===================== TAB CONTENT: SIMULATION ===================== */}
         {activeTab === "SIMULATION" && (
-          <div className="flex flex-col lg:flex-row gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500" id="report-container">
+          <div className="w-full max-w-7xl flex flex-col lg:flex-row gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500" id="report-container">
             <div className="glass-panel p-6 w-full lg:w-2/3 bg-gradient-to-br from-[#0e0f1d] to-[#0c0d18]">
                <div className="flex items-center justify-between mb-6 border-b border-slate-700/50 pb-4">
                   <div>
@@ -461,14 +484,22 @@ export default function Home() {
                   ))}
                </div>
 
-               <div className="mt-8 pt-6 border-t border-slate-800 flex items-center gap-4">
+               <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col gap-2 relative">
                   <button 
                     onClick={handleCustomSimulation}
                     disabled={simLoading}
-                    className="flex-1 bg-neonCyan hover:bg-cyan-400 text-black font-bold py-3.5 rounded-md transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] disabled:opacity-50 text-sm tracking-widest uppercase flex justify-center items-center gap-2"
+                    className="w-full bg-neonCyan hover:bg-cyan-400 text-black font-bold py-3.5 rounded-md transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] disabled:opacity-50 text-sm tracking-widest uppercase flex justify-center items-center gap-2"
                   >
+                    {simLoading && <Activity className="w-4 h-4 animate-spin" />}
                     {simLoading ? t.analyzing : t.simCalculateBtn}
                   </button>
+                  {/* Slow API Warning for Custom Simulation */}
+                  {isTakingLong && simLoading && (
+                    <div className="absolute top-full left-0 mt-2 w-full p-2.5 rounded-md bg-yellow-900/30 border border-yellow-500/50 text-yellow-300 text-[10px] text-center italic flex items-center justify-center gap-2 animate-in fade-in zoom-in duration-300 shadow-xl z-50">
+                      <Info className="w-3.5 h-3.5" />
+                      {t.wakeUpWarning}
+                    </div>
+                  )}
                </div>
             </div>
 
@@ -529,7 +560,7 @@ export default function Home() {
 
         {/* ===================== TAB CONTENT: DASHBOARD ===================== */}
         {activeTab === "DASHBOARD" && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-500" id="report-container">
+          <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-500" id="report-container">
             <div className="lg:col-span-1 flex flex-col gap-6">
               
               <div className="glass-panel p-6 flex flex-col gap-4 bg-gradient-to-b from-[#131424] to-[#0c0d18]">
@@ -558,8 +589,16 @@ export default function Home() {
                   className="w-full bg-neonCyan hover:bg-cyan-400 text-black font-bold py-3.5 rounded-md transition-all shadow-[0_0_15px_rgba(0,229,255,0.4)] hover:shadow-[0_0_25px_rgba(0,229,255,0.6)] disabled:opacity-50 mt-2 text-sm uppercase tracking-widest flex items-center justify-center gap-2"
                   disabled={loading}
                 >
+                  {loading && <Activity className="w-4 h-4 animate-spin" />}
                   {loading ? t.analyzing : t.telemetryBtn}
                 </button>
+                {/* Slow API Warning for Dashboard */}
+                {isTakingLong && loading && (
+                  <div className="absolute top-full left-0 mt-2 w-full p-2.5 rounded-md bg-yellow-900/30 border border-yellow-500/50 text-yellow-300 text-[10px] text-center italic flex items-center justify-center gap-2 animate-in fade-in zoom-in duration-300 shadow-xl z-50">
+                    <Info className="w-3.5 h-3.5" />
+                    {t.wakeUpWarning}
+                  </div>
+                )}
               </div>
 
               <div className="glass-panel p-6 flex flex-col items-center border border-slate-800">
@@ -710,15 +749,15 @@ export default function Home() {
             </div>
           </div>
         )}
-        {/* FOOTER BRANDING INSIDE SCROLL */}
-        <div className="w-full flex items-center justify-center py-6 mt-8 border-t border-slate-800/50 text-slate-600 text-[9px] font-bold tracking-[0.2em] uppercase">
+        {/* FOOTER BRANDING INSIDE SCROLL - Centered and Spaced */}
+        <div className="w-full max-w-7xl flex items-center justify-center py-12 mt-12 border-t border-slate-800/50 text-slate-600 text-[10px] font-bold tracking-[0.3em] uppercase">
           Engineered by <span className="text-neonCyan ml-1.5 mr-3">GÖKDENİZ ERTEN</span> | <span className="ml-3">NASA Predictive Maintenance Network © 2026</span>
         </div>
       </div>
 
       {showImageModal && (
         <div 
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 md:p-12 cursor-zoom-out backdrop-blur-sm"
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 md:p-12 cursor-zoom-out backdrop-blur-md"
           onClick={() => setShowImageModal(false)}
         >
           <div className="relative w-full h-full max-w-6xl max-h-[90vh]">
