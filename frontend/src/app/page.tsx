@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { AlertTriangle, CheckCircle, Activity, User, LogOut, Globe, Info, Settings, Database, ArrowDownToLine, Cpu, Network, Layers, ChevronDown } from "lucide-react";
+import { AlertTriangle, CheckCircle, Activity, LogOut, Globe, Info, Settings, Database, ArrowDownToLine, Cpu, Network, ChevronDown } from "lucide-react";
 import { dict } from "./locales";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { jsPDF } from "jspdf";
@@ -87,7 +87,7 @@ export default function Home() {
     setPdfGenerating(true);
     
     setTimeout(() => {
-        html2canvas(element, { backgroundColor: '#0b0c10', scale: 2 }).then((canvas) => {
+        html2canvas(element, { backgroundColor: '#ffffff', scale: 2 }).then((canvas) => {
           const imgData = canvas.toDataURL('image/png');
           const pdf = new jsPDF('p', 'mm', 'a4');
           const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -189,102 +189,105 @@ export default function Home() {
 
   if (showLanding) {
     return (
-      <div className="w-full h-screen bg-[#f8fafc] flex flex-col justify-between items-center text-slate-800 relative overflow-hidden font-sans selection:bg-blue-100 selection:text-blue-900 py-6 px-6">
+      <div className="w-full min-h-screen bg-[#F8FAFC] flex flex-col items-center text-[#1E293B] relative overflow-x-hidden font-sans selection:bg-blue-600 selection:text-white pb-12">
          
-         {/* Background effects — light theme */}
-         <div className="absolute top-0 left-0 w-full h-[50%] bg-gradient-to-b from-blue-50 to-transparent pointer-events-none"></div>
-         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-100/30 filter blur-[100px] pointer-events-none"></div>
-         <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-50/50 filter blur-[120px] pointer-events-none"></div>
-         <div className="absolute inset-0 opacity-[0.4] pointer-events-none" style={{ backgroundImage: "linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
+         {/* Background effects — light theme subtle glows */}
+         <div className="absolute top-0 left-0 w-full h-[40%] bg-gradient-to-b from-blue-50 to-transparent pointer-events-none"></div>
+         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-100/50 filter blur-[100px] pointer-events-none opacity-60"></div>
+         <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-cyan-100/50 filter blur-[120px] pointer-events-none opacity-50"></div>
+         <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1e3a8a 1px, transparent 1px), linear-gradient(90deg, #1e3a8a 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
 
          {/* TOP BAR */}
-         <div className="z-10 w-full max-w-6xl flex items-center justify-between">
+         <div className="z-10 w-full max-w-6xl flex items-center justify-between px-6 py-6">
            <div className="flex items-center gap-2">
-             <div className="w-8 h-8 rounded-full bg-blue-900/10 flex items-center justify-center border border-blue-900/10">
-               <Network className="w-4 h-4 text-[#1a237e]"/>
+             <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center border border-blue-600/20 shadow-sm">
+               <Network className="w-4 h-4 text-blue-700"/>
              </div>
-             <span className="text-xs font-bold text-[#1a237e] uppercase tracking-[0.2em]">NASA CMAPSS · Predictive Maintenance</span>
+             <span className="text-[10px] md:text-xs font-bold text-blue-900 uppercase tracking-[0.2em]">{t.navBrand1} · {t.navBrand2}</span>
            </div>
-           <button onClick={toggleLang} className="text-slate-600 hover:text-slate-900 flex items-center gap-2 text-sm border border-slate-200 px-3 py-1.5 cursor-pointer z-50 rounded-full bg-white/80 backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
-             <Globe className="w-4 h-4 text-[#1a237e]" /> 
+           <button onClick={toggleLang} className="text-slate-600 hover:text-blue-900 flex items-center gap-2 text-sm border border-slate-200 px-3 py-1.5 cursor-pointer z-50 rounded-full bg-white/80 backdrop-blur-md shadow-sm transition-all font-semibold hover:shadow-md">
+             <Globe className="w-4 h-4" /> 
              <div className="flex items-center">
-                <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'TR' ? 'bg-[#1a237e] text-white' : 'text-slate-400'}`}>TR</span>
-                <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'EN' ? 'bg-[#1a237e] text-white' : 'text-slate-400'}`}>EN</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors ${lang === 'TR' ? 'bg-blue-900 text-white' : 'text-slate-400'}`}>TR</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors ${lang === 'EN' ? 'bg-blue-900 text-white' : 'text-slate-400'}`}>EN</span>
              </div>
            </button>
          </div>
 
          {/* MAIN CONTENT */}
-         <div className="z-10 max-w-6xl w-full flex flex-col items-center text-center">
+         <div className="z-10 max-w-6xl w-full flex flex-col items-center text-center px-6 mt-4 md:mt-8">
 
             {/* Hook line */}
-            <div className="mb-3 text-base md:text-lg text-slate-500 font-medium italic">
-              &quot;{t.landingSubtitle}&quot; &nbsp;<span className="not-italic font-black text-[#1a237e]">{t.landingAnswer}</span>
+            <div className="mb-4 text-sm md:text-lg text-slate-500 font-medium italic">
+              &quot;{t.landingSubtitle}&quot; &nbsp;<span className="not-italic font-black text-blue-700">{t.landingAnswer}</span>
             </div>
 
-            <h1 className="text-4xl md:text-7xl font-black mb-4 tracking-tight leading-[1.0] text-center text-[#1a237e]">
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-black mb-6 tracking-tight leading-[1.1] text-center text-[#1A237E]">
               {t.landingTitle}
-              <br/>
-              <span className="text-slate-800">{t.landingTitle2}</span>
+              <br className="hidden sm:block"/>
+              <span className="text-blue-600">{t.landingTitle2}</span>
             </h1>
             
-            <p className="text-base md:text-xl text-slate-500 max-w-3xl mb-10 leading-relaxed font-medium">
+            <p className="text-sm md:text-xl text-slate-600 max-w-3xl mb-10 leading-relaxed font-medium">
               {t.landingDesc}
             </p>
 
-            {/* 3 Feature Cards — light style matching user photo */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-8 text-left">
-               <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+            {/* 3 Feature Cards — Light Theme Responsive */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-10 text-left">
+               <div className="glass-panel p-6 rounded-2xl border border-slate-200/60 hover:border-blue-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white/40">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center group-hover:bg-blue-700 group-hover:text-white transition-colors duration-300 shadow-sm">
                        <Database className="w-5 h-5"/>
                     </div>
-                    <span className="text-[10px] font-bold text-[#1a237e] uppercase tracking-widest">{t.landingF1Tag}</span>
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF1Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg mb-2">{t.landingF1Title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">&quot;{t.landingF1Desc}&quot;</p>
+                  <h3 className="font-bold text-blue-900 text-lg mb-2">{t.landingF1Title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{t.landingF1Desc}</p>
                </div>
                
-               <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+               <div className="glass-panel p-6 rounded-2xl border border-slate-200/60 hover:border-blue-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white/40">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center group-hover:bg-blue-700 group-hover:text-white transition-colors duration-300 shadow-sm">
                        <Cpu className="w-5 h-5"/>
                     </div>
-                    <span className="text-[10px] font-bold text-[#1a237e] uppercase tracking-widest">{t.landingF2Tag}</span>
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF2Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg mb-2">{t.landingF2Title}</h3>
+                  <h3 className="font-bold text-blue-900 text-lg mb-2">{t.landingF2Title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{t.landingF2Desc}</p>
                </div>
                
-               <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+               <div className="glass-panel p-6 rounded-2xl border border-slate-200/60 hover:border-blue-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white/40">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1a237e] flex items-center justify-center group-hover:bg-[#1a237e] group-hover:text-white transition-colors duration-300">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center group-hover:bg-blue-700 group-hover:text-white transition-colors duration-300 shadow-sm">
                        <Activity className="w-5 h-5"/>
                     </div>
-                    <span className="text-[10px] font-bold text-[#1a237e] uppercase tracking-widest">{t.landingF3Tag}</span>
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{t.landingF3Tag}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg mb-2">{t.landingF3Title}</h3>
+                  <h3 className="font-bold text-blue-900 text-lg mb-2">{t.landingF3Title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{t.landingF3Desc}</p>
                </div>
             </div>
 
-            {/* How it works — light */}
-            <div className="w-full bg-white/50 backdrop-blur-sm border border-slate-100 px-8 py-5 mb-8 flex items-center gap-6 rounded-2xl shadow-sm">
-              <span className="text-xs font-black text-[#1a237e] uppercase tracking-widest whitespace-nowrap">{t.landingHowTitle}</span>
-              <div className="flex-1 flex items-center gap-4">
-                <div className="flex items-center gap-3 flex-1">
-                  <span className="w-8 h-8 rounded-full bg-[#1a237e] text-white text-sm font-bold flex items-center justify-center shrink-0">1</span>
-                  <p className="text-xs text-slate-600 font-medium">{t.landingStep1}</p>
+            {/* How it works — Light responsive steps */}
+            <div className="w-full glass-panel p-6 md:p-8 mb-10 text-left bg-white/60">
+              <h2 className="text-xs font-black text-blue-800 uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
+                <div className="w-4 h-1 bg-blue-600 rounded-full"></div>
+                {t.landingHowTitle}
+              </h2>
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-4">
+                <div className="flex items-center gap-4 flex-1">
+                  <span className="w-10 h-10 rounded-full bg-blue-900 text-white text-sm font-bold flex items-center justify-center shrink-0 shadow-lg">1</span>
+                  <p className="text-sm text-slate-600 font-medium leading-snug">{t.landingStep1}</p>
                 </div>
-                <div className="text-slate-300">→</div>
-                <div className="flex items-center gap-3 flex-1">
-                  <span className="w-8 h-8 rounded-full bg-[#1a237e] text-white text-sm font-bold flex items-center justify-center shrink-0">2</span>
-                  <p className="text-xs text-slate-600 font-medium">{t.landingStep2}</p>
+                <div className="hidden md:block text-slate-300 font-light text-2xl">→</div>
+                <div className="flex items-center gap-4 flex-1">
+                  <span className="w-10 h-10 rounded-full bg-blue-900 text-white text-sm font-bold flex items-center justify-center shrink-0 shadow-lg">2</span>
+                  <p className="text-sm text-slate-600 font-medium leading-snug">{t.landingStep2}</p>
                 </div>
-                <div className="text-slate-300">→</div>
-                <div className="flex items-center gap-3 flex-1">
-                  <span className="w-8 h-8 rounded-full bg-[#1a237e] text-white text-sm font-bold flex items-center justify-center shrink-0">3</span>
-                  <p className="text-xs text-slate-600 font-medium">{t.landingStep3}</p>
+                <div className="hidden md:block text-slate-300 font-light text-2xl">→</div>
+                <div className="flex items-center gap-4 flex-1">
+                  <span className="w-10 h-10 rounded-full bg-blue-900 text-white text-sm font-bold flex items-center justify-center shrink-0 shadow-lg">3</span>
+                  <p className="text-sm text-slate-600 font-medium leading-snug">{t.landingStep3}</p>
                 </div>
               </div>
             </div>
@@ -292,250 +295,240 @@ export default function Home() {
             {/* CTA Button */}
             <button 
               onClick={() => setShowLanding(false)}
-              className="bg-[#1a237e] hover:bg-blue-800 text-white font-bold text-lg px-12 py-5 rounded-full shadow-xl hover:shadow-blue-200 transition-all hover:-translate-y-1 flex items-center gap-3 group"
+              className="bg-[#1A237E] hover:bg-blue-800 text-white font-bold text-lg px-8 md:px-12 py-5 rounded-full shadow-2xl hover:shadow-blue-200 transition-all hover:-translate-y-1 flex items-center gap-3 group relative overflow-hidden active:scale-95"
             >
-              <Activity className="w-6 h-6 group-hover:scale-110 transition-transform" /> {t.launchBtn}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-white/10 to-blue-400/0 -translate-x-full group-hover:animate-[shimmer_2s_infinite]"></div>
+              <Activity className="w-5 h-5 group-hover:scale-110 transition-transform" /> {t.launchBtn}
             </button>
          </div>
 
          {/* FOOTER */}
-         <div className="z-10 text-slate-400 text-[10px] font-bold tracking-[0.2em] uppercase">
-            Engineered by <span className="text-[#1a237e] ml-1">Gökdeniz Erten</span>
+         <div className="mt-12 text-slate-400 text-[10px] font-bold tracking-[0.2em] uppercase">
+            Engineered by <span className="text-blue-900 ml-1">Gökdeniz Erten</span>
          </div>
       </div>
     );
   } 
 
   return (
-    <div className="w-full h-screen bg-[#f8fafc] text-slate-800 font-sans relative overflow-hidden selection:bg-blue-100 selection:text-blue-900">
+    <div className="w-full min-h-screen bg-[#F8FAFC] text-[#1E293B] font-sans relative overflow-x-hidden selection:bg-blue-600 selection:text-white">
       
-      {/* GLOBAL BACKGROUND EFFECTS — Light Theme */}
+      {/* GLOBAL BACKGROUND EFFECTS - Subtle Soft Glows */}
       <div className="absolute top-0 left-0 w-full h-[30%] bg-gradient-to-b from-blue-50 to-transparent pointer-events-none"></div>
-      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-100/20 filter blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-50/40 filter blur-[120px] pointer-events-none"></div>
-      <div className="absolute inset-0 opacity-[0.2] pointer-events-none" style={{ backgroundImage: "linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-100/40 filter blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-cyan-100/40 filter blur-[120px] pointer-events-none"></div>
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1e3a8a 1px, transparent 1px), linear-gradient(90deg, #1e3a8a 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
 
       {/* LANGUAGE TOGGLE */}
-      <button onClick={toggleLang} className="absolute top-4 right-4 text-slate-600 hover:text-slate-900 flex items-center gap-2 text-sm border border-slate-200 px-2 py-1 rounded-full bg-white/80 backdrop-blur-md z-50 transition-colors shadow-sm">
-        <Globe className="w-4 h-4 ml-1 text-[#1a237e]" />
+      <button onClick={toggleLang} className="absolute top-4 right-4 text-slate-500 hover:text-blue-900 flex items-center gap-2 text-xs border border-slate-200 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md z-50 transition-all shadow-sm">
+        <Globe className="w-3.5 h-3.5" />
         <div className="flex items-center">
-            <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'TR' ? 'bg-[#1a237e] text-white' : 'text-slate-400'}`}>TR</span>
-            <span className={`px-2 py-0.5 rounded-full text-xs font-bold transition-colors ${lang === 'EN' ? 'bg-[#1a237e] text-white' : 'text-slate-400'}`}>EN</span>
+            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors ${lang === 'TR' ? 'bg-blue-900 text-white' : 'text-slate-400'}`}>TR</span>
+            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors ${lang === 'EN' ? 'bg-blue-900 text-white' : 'text-slate-400'}`}>EN</span>
         </div>
       </button>
 
       {/* MAIN SINGLE SCROLLABLE CONTAINER */}
-      <div className="w-full h-full overflow-y-auto px-4 pt-4 pb-32 relative z-10 flex flex-col items-center">
+      <div className="w-full h-full px-4 pt-4 pb-20 relative z-10 flex flex-col items-center">
         
         {/* TOP NAVBAR */}
-        <div className="w-full max-w-7xl glass-panel px-6 py-4 flex items-center justify-between border-b border-slate-100 bg-white/80 backdrop-blur-md mb-6 shadow-sm">
+        <div className="w-full max-w-7xl glass-panel px-4 md:px-6 py-4 flex flex-col sm:flex-row items-center justify-between border border-slate-200 bg-white/90 backdrop-blur-md mb-6 gap-4">
 
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center border border-blue-100 shadow-sm">
-              <Network className="text-[#1a237e] w-5 h-5" />
+          <div className="flex items-center gap-3 self-start sm:self-center">
+            <div className="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center border border-blue-200 shadow-sm">
+              <Network className="text-blue-900 w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] text-[#1a237e] uppercase tracking-[0.2em] font-bold">{t.navBrand1}</div>
-              <div className="font-semibold text-slate-900 tracking-wide text-sm">{t.navBrand2}</div>
+              <div className="text-[10px] text-blue-800 uppercase tracking-[0.2em] font-bold">{t.navBrand1}</div>
+              <div className="font-extrabold text-[#1A237E] tracking-tight text-sm uppercase">{t.navBrand2}</div>
             </div>
           </div>
           
-          <div className="hidden md:flex bg-slate-50 p-1 rounded-md border border-slate-100 shadow-inner">
-            <button onClick={()=>setActiveTab("DASHBOARD")} className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'DASHBOARD' ? 'bg-[#1a237e] text-white shadow-md' : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'}`}>
+          <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-inner w-full sm:w-auto overflow-x-auto no-scrollbar">
+            <button onClick={()=>setActiveTab("DASHBOARD")} className={`flex-1 sm:flex-none px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-bold flex items-center justify-center gap-2 transition-all whitespace-nowrap ${activeTab === 'DASHBOARD' ? 'bg-[#1A237E] text-white shadow-lg' : 'text-slate-500 hover:bg-white/60 hover:text-blue-900'}`}>
               <Activity className="w-4 h-4"/> {t.tabDashboard}
             </button>
-            <button onClick={()=>setActiveTab("SIMULATION")} className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'SIMULATION' ? 'bg-[#1a237e] text-white shadow-md' : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'}`}>
+            <button onClick={()=>setActiveTab("SIMULATION")} className={`flex-1 sm:flex-none px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-bold flex items-center justify-center gap-2 transition-all whitespace-nowrap ${activeTab === 'SIMULATION' ? 'bg-[#1A237E] text-white shadow-lg' : 'text-slate-500 hover:bg-white/60 hover:text-blue-900'}`}>
               <Settings className="w-4 h-4"/> {t.tabSim}
             </button>
-            <button onClick={()=>setActiveTab("DOCS")} className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'DOCS' ? 'bg-[#1a237e] text-white shadow-md' : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'}`}>
+            <button onClick={()=>setActiveTab("DOCS")} className={`flex-1 sm:flex-none px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-bold flex items-center justify-center gap-2 transition-all whitespace-nowrap ${activeTab === 'DOCS' ? 'bg-[#1A237E] text-white shadow-lg' : 'text-slate-500 hover:bg-white/60 hover:text-blue-900'}`}>
               <Database className="w-4 h-4"/> {t.tabDocs}
             </button>
           </div>
 
-          <button onClick={handleLogout} className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded-lg bg-white shadow-sm">
+          <button onClick={handleLogout} className="w-full sm:w-auto flex items-center justify-center gap-2 text-slate-500 hover:text-blue-900 transition-all border border-slate-200 hover:border-blue-900/20 px-4 py-2.5 rounded-xl bg-white shadow-sm hover:shadow-md">
             <LogOut className="w-4 h-4 rotate-180" />
-            <span className="hidden sm:inline text-sm font-medium">{t.returnToLanding}</span>
+            <span className="text-xs font-bold uppercase tracking-wider">{t.returnToLanding}</span>
           </button>
         </div>
 
         {/* HEADER / HERO TITLE */}
-        <div className="w-full max-w-7xl text-center mt-2 mb-8 animate-in fade-in slide-in-from-top-4 duration-500">
-          <h1 className="text-3xl md:text-5xl font-black text-[#1a237e] mb-2 drop-shadow-sm leading-tight">
+        <div className="w-full max-w-7xl text-center mt-2 mb-8 px-4">
+          <h1 className="text-2xl md:text-5xl font-black text-[#1A237E] mb-2 drop-shadow-sm leading-tight tracking-tight">
             {t.dashTitle}
           </h1>
-          <p className="text-slate-500 text-sm tracking-[0.3em] font-bold uppercase opacity-80">
+          <p className="text-slate-500 text-[10px] md:text-xs tracking-[0.4em] font-black uppercase opacity-60">
             {activeTab === "DASHBOARD" ? t.dashDesc : activeTab === "SIMULATION" ? t.simTitle : t.docTitle}
           </p>
         </div>
 
         {/* ===================== TAB CONTENT: DOCS ===================== */}
         {activeTab === "DOCS" && (
-          <div className="w-full max-w-7xl glass-panel p-8 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700 bg-white/95 relative group/docs border border-blue-50 shadow-xl">
-            
-            {/* Arka Plan Efektleri */}
-            <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "linear-gradient(#1a237e 1px, transparent 1px), linear-gradient(90deg, #1a237e 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full mix-blend-multiply filter blur-[150px] opacity-20 pointer-events-none"></div>
-
+          <div className="w-full max-w-7xl glass-panel p-6 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700 bg-white shadow-2xl relative border border-slate-200">
             <div className="relative z-10">
-              <div className="mb-12 border-b border-slate-100 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="mb-10 border-b border-slate-100 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
                  <div>
-                   <div className="text-[#1a237e] uppercase tracking-[0.3em] font-bold text-xs mb-3 flex items-center gap-2">
-                     <Network className="w-4 h-4"/> Bilişim Raporu Ve Altyapı
+                   <div className="text-blue-600 uppercase tracking-[0.3em] font-black text-[10px] mb-3 flex items-center gap-2">
+                     <Network className="w-4 h-4"/> NASA AI SYSTEMS ALGORITHM
                    </div>
-                   <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+                   <h2 className="text-3xl md:text-5xl font-black text-[#1A237E] max-w-3xl leading-tight tracking-tight">
                      {t.docTitle}
                    </h2>
                  </div>
-                 <div className="text-right">
-                    <div className="inline-flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-100 text-xs text-slate-500 font-mono">
-                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div> ALGORITHM: LSTM_v3.4
+                 <div className="text-left md:text-right">
+                    <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full border border-blue-100 text-[10px] text-blue-900 font-mono font-bold">
+                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div> LSTM_NEURAL_v3.4
                     </div>
                  </div>
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
-                {/* Sol Kutu - CMAPSS */}
-                <div className="lg:col-span-1 bg-white p-8 rounded-2xl border border-slate-100 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300 shadow-sm group">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6 border border-blue-100 group-hover:bg-blue-100 transition-colors">
-                    <Database className="text-[#1a237e] w-6 h-6"/>
+                <div className="lg:col-span-1 bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:border-blue-200 transition-all duration-300 group shadow-sm flex flex-col">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
+                    <Database className="w-6 h-6"/>
                   </div>
-                  <h3 className="text-slate-900 font-bold mb-4 text-xl tracking-wide">{t.whatIsCmapss}</h3>
-                  <p className="text-slate-600 leading-relaxed text-sm">{t.cmapssDesc}</p>
+                  <h3 className="text-[#1A237E] font-black mb-4 text-xl tracking-tight">{t.whatIsCmapss}</h3>
+                  <p className="text-slate-600 leading-relaxed text-sm font-medium">{t.cmapssDesc}</p>
                 </div>
 
-                {/* Orta Div - Yapay Zeka Nasıl Çalışıyor */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-2xl border border-slate-100 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300 shadow-sm relative overflow-hidden group">
-                  <div className="flex flex-col md:flex-row gap-8 relative z-10">
+                <div className="lg:col-span-2 bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:border-blue-200 transition-all duration-300 group shadow-sm relative overflow-hidden">
+                  <div className="flex flex-col md:flex-row gap-8 relative z-10 h-full">
                     <div className="flex-1">
-                      <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6 border border-blue-100 group-hover:bg-blue-100 transition-colors">
-                        <Cpu className="text-blue-700 w-6 h-6"/>
+                      <div className="w-12 h-12 rounded-2xl bg-[#1A237E] text-white flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
+                        <Cpu className="w-6 h-6"/>
                       </div>
-                      <h3 className="text-slate-900 font-bold mb-4 text-xl tracking-wide">{t.howItWorks}</h3>
-                      <p className="text-slate-600 leading-relaxed text-sm mb-6">{t.howItWorksDesc}</p>
+                      <h3 className="text-[#1A237E] font-black mb-4 text-xl tracking-tight">{t.howItWorks}</h3>
+                      <p className="text-slate-600 leading-relaxed text-sm font-medium mb-6">{t.howItWorksDesc}</p>
                     </div>
 
-                    <div className="flex-1 bg-slate-50 rounded-xl border border-slate-100 p-4 font-mono text-[10px] sm:text-xs text-slate-500 relative shadow-inner overflow-hidden flex flex-col justify-center">
-                      <div className="text-blue-700 mb-2">// LSTM Neural Network Structure</div>
-                      <div className="text-slate-800">model = Sequential()</div>
-                      <div className="text-indigo-800">model.add(<span className="text-blue-900">LSTM</span>(units=100, return_sequences=True))</div>
-                      <div className="text-indigo-800">model.add(<span className="text-blue-900">Dropout</span>(0.2))</div>
-                      <div className="text-indigo-800">model.add(<span className="text-blue-900">LSTM</span>(units=50, return_sequences=False))</div>
-                      <div className="text-indigo-800">model.add(<span className="text-blue-900">Dense</span>(units=1, activation=&apos;linear&apos;))</div>
-                      <div className="text-green-700 mt-2"># RUL Regression Output</div>
+                    <div className="flex-1 bg-white rounded-2xl border border-slate-200 p-6 font-mono text-[10px] sm:text-xs text-slate-500 relative shadow-inner overflow-hidden flex flex-col justify-center gap-1.5 self-stretch">
+                       <div className="text-blue-600 font-bold mb-2">// LSTM NEURAL NETWORK</div>
+                       <div className="text-slate-400">model = Sequential()</div>
+                       <div className="text-[#1A237E] font-semibold">model.add(LSTM(units=100, sequences=True))</div>
+                       <div className="text-blue-500">model.add(Dropout(0.2))</div>
+                       <div className="text-[#1A237E] font-semibold">model.add(LSTM(units=50))</div>
+                       <div className="text-[#1A237E] font-semibold">model.add(Dense(units=1))</div>
+                       <div className="text-green-600 mt-2 font-bold"># AI PREDICTION OUTPUT</div>
                     </div>
                   </div>
                 </div>
 
-                {/* Alt Tam Genişlik - Neden 100 */}
-                <div className="lg:col-span-3 bg-white p-8 rounded-2xl border border-slate-100 hover:border-blue-200 transition-all flex flex-col sm:flex-row items-center gap-6 shadow-sm relative overflow-hidden">
-                  <div className="absolute left-0 top-0 w-1.5 h-full bg-[#1a237e]"></div>
-                  
-                  <div className="shrink-0 w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center border-2 border-blue-100">
-                    <Activity className="text-blue-900 w-8 h-8" />
+                <div className="lg:col-span-3 bg-blue-900 p-8 rounded-3xl border border-blue-950 transition-all flex flex-col md:flex-row items-center gap-8 shadow-2xl relative overflow-hidden group">
+                  <div className="shrink-0 w-20 h-20 rounded-full bg-blue-800 flex items-center justify-center border-4 border-blue-700/50 shadow-xl group-hover:scale-110 transition-transform">
+                    <Activity className="text-white w-10 h-10" />
                   </div>
-                  
-                  <div>
-                    <h3 className="text-slate-900 font-bold mb-2 text-lg tracking-wide">{t.why100}</h3>
-                    <p className="text-slate-600 leading-relaxed text-sm max-w-5xl">{t.why100Desc}</p>
+                  <div className="text-center md:text-left">
+                    <h3 className="text-white font-black mb-2 text-2xl tracking-tight leading-none uppercase">{t.why100}</h3>
+                    <p className="text-blue-100 leading-relaxed text-base font-medium max-w-4xl opacity-80">{t.why100Desc}</p>
                   </div>
                 </div>
-                  {/* ===================== TAB CONTENT: SIMULATION ===================== */}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ===================== TAB CONTENT: SIMULATION ===================== */}
         {activeTab === "SIMULATION" && (
-          <div className="w-full max-w-7xl flex flex-col lg:flex-row gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="glass-panel p-6 w-full lg:w-2/3 bg-white shadow-lg border border-slate-100">
-               <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+          <div className="w-full max-w-7xl flex flex-col lg:flex-row gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500" id="report-container">
+            <div className="glass-panel p-6 md:p-8 w-full lg:w-2/3 bg-white border border-slate-200 shadow-xl shadow-slate-200/50">
+               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 border-b border-slate-100 pb-6 gap-4">
                   <div>
-                    <h2 className="text-xl font-bold text-slate-900 mb-1 flex items-center gap-2"><Settings className="w-5 h-5 text-[#1a237e]"/> {t.simTitle}</h2>
-                    <p className="text-[11px] text-slate-500 tracking-wider uppercase font-bold">{t.simDesc}</p>
+                    <h2 className="text-2xl font-black text-[#1A237E] mb-1 flex items-center gap-2"><Settings className="w-6 h-6 text-blue-600"/> {t.simTitle}</h2>
+                    <p className="text-xs text-slate-400 font-bold tracking-widest uppercase">{t.simDesc}</p>
                   </div>
-                  <div className="flex gap-2">
-                    <button onClick={handleRandomizeSensors} className="bg-blue-50 text-[#1a237e] border border-blue-100 px-4 py-2 rounded-md text-sm font-bold hover:bg-blue-100 transition-all flex items-center gap-2 shadow-sm">
-                      <Activity className="w-4 h-4" /> {t.simRandomBtn}
-                    </button>
-                  </div>
+                  <button onClick={handleRandomizeSensors} className="w-full sm:w-auto bg-blue-50 text-blue-900 border border-blue-200 px-6 py-3 rounded-xl text-xs font-bold hover:bg-blue-100 transition-all flex items-center justify-center gap-2 uppercase tracking-widest shadow-sm">
+                    <Activity className="w-4 h-4" /> {t.simRandomBtn}
+                  </button>
                </div>
                
-               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   {CMAPSS_KEYS.map((sensor) => (
-                    <div key={sensor.key} className="flex flex-col gap-1.5 group">
-                      <label className="text-[10px] text-[#1a237e] uppercase tracking-widest font-black">
-                        {sensor.key} <span className="text-slate-400 font-normal">({sensor.min}-{sensor.max})</span>
+                    <div key={sensor.key} className="flex flex-col gap-2 group">
+                      <label className="text-[10px] text-blue-900 uppercase tracking-widest font-black flex justify-between">
+                        {sensor.key} <span className="text-slate-400 font-medium">[{sensor.min}-{sensor.max}]</span>
                       </label>
                       <input 
                         type="number" step="0.0001"
                         value={customSensors[sensor.key] || ""}
                         onChange={(e) => parseValue(sensor.key, e.target.value)}
-                        className="bg-slate-50 border border-slate-200 rounded-md p-2.5 text-slate-900 text-sm focus:outline-none focus:border-[#1a237e] transition-all group-hover:border-slate-300 focus:bg-white"
+                        className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 text-sm font-bold focus:outline-none focus:border-blue-600 transition-all focus:ring-4 ring-blue-50 group-hover:border-slate-300"
                       />
                     </div>
                   ))}
                </div>
 
-               <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col gap-2 relative">
+               <div className="mt-10 pt-8 border-t border-slate-100 flex flex-col gap-4 relative">
                   <button 
                     onClick={handleCustomSimulation}
                     disabled={simLoading}
-                    className="w-full bg-[#1a237e] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-all shadow-md disabled:opacity-50 text-sm tracking-widest uppercase flex justify-center items-center gap-2"
+                    className="w-full bg-[#1A237E] hover:bg-blue-800 text-white font-black py-5 rounded-2xl transition-all shadow-2xl shadow-blue-200 disabled:opacity-50 text-sm tracking-[0.2em] uppercase flex justify-center items-center gap-3"
                   >
-                    {simLoading && <Activity className="w-4 h-4 animate-spin" />}
+                    {simLoading && <Activity className="w-5 h-5 animate-spin" />}
                     {simLoading ? t.analyzing : t.simCalculateBtn}
                   </button>
-                  {/* Slow API Warning for Custom Simulation */}
                   {isTakingLong && simLoading && (
-                    <div className="absolute top-full left-0 mt-2 w-full p-2.5 rounded-md bg-yellow-50 border border-yellow-200 text-yellow-800 text-[10px] text-center italic font-bold flex items-center justify-center gap-2 animate-in fade-in zoom-in duration-300 shadow-md z-50">
-                      <Info className="w-3.5 h-3.5 text-yellow-600" />
+                    <div className="w-full p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 text-xs text-center font-bold italic flex items-center justify-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                      <Info className="w-5 h-5" />
                       {t.wakeUpWarning}
                     </div>
                   )}
                </div>
             </div>
 
-            <div className="glass-panel p-6 w-full lg:w-1/3 flex flex-col justify-center items-center min-h-[300px] bg-white border border-slate-100 shadow-inner">
+            <div className="glass-panel p-8 w-full lg:w-1/3 flex flex-col justify-center items-center min-h-[400px] bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden">
               {!simResult ? (
-                 <div className="text-slate-500 text-center flex flex-col items-center justify-center h-full">
-                   <div className="w-16 h-16 rounded-full border-2 border-dashed border-slate-300 flex items-center justify-center animate-spin-slow mb-4">
-                     <Activity className="w-6 h-6 text-slate-400"/>
+                 <div className="text-slate-400 text-center flex flex-col items-center justify-center h-full">
+                   <div className="w-20 h-20 rounded-full border-4 border-dashed border-slate-200 flex items-center justify-center animate-spin-slow mb-6">
+                     <Activity className="w-8 h-8 text-slate-300"/>
                    </div>
-                   <p className="text-sm tracking-wide">{t.waitingData}</p>
+                   <p className="text-xs font-black uppercase tracking-[0.2em]">{t.waitingData}</p>
                  </div>
               ) : (
-                 <div className="w-full text-center fade-in flex flex-col h-full">
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="text-left">
-                        <h3 className="text-xs uppercase tracking-widest text-slate-400 mb-1">{t.analyzedUnit}</h3>
-                        <div className="font-bold text-lg text-slate-900">{t.customSimLabel}</div>
+                 <div className="w-full text-center fade-in flex flex-col h-full z-10">
+                    <div className="flex justify-between items-start mb-8 text-left">
+                      <div>
+                        <h3 className="text-[10px] uppercase tracking-widest text-slate-400 font-black mb-1">{t.analyzedUnit}</h3>
+                        <div className="font-black text-xl text-[#1A237E]">{t.customSimLabel}</div>
                       </div>
-                      
-                      <button onClick={downloadPDF} disabled={pdfGenerating} className="text-xs flex items-center gap-1 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded text-slate-600 transition-colors border border-slate-200">
-                        <ArrowDownToLine className="w-3 h-3" /> PDF
+                      <button onClick={downloadPDF} disabled={pdfGenerating} className="text-[10px] font-black flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-xl text-slate-600 hover:text-blue-900 hover:border-blue-200 transition-all shadow-sm">
+                        <ArrowDownToLine className="w-4 h-4 text-blue-600" /> PDF
                       </button>
                     </div>
 
-                    <div className={`flex-1 p-8 rounded-xl border flex flex-col items-center justify-center mx-auto shadow-2xl w-full mb-6 relative overflow-hidden ${
-                      simResult.status === 'NORMAL' ? 'bg-green-50 border-green-200' :
-                      simResult.status === 'RISKY' ? 'bg-amber-50 border-amber-200' :
-                      'bg-red-50 border-red-200'
+                    <div className={`flex-1 p-10 rounded-3xl border-4 flex flex-col items-center justify-center mx-auto shadow-2xl w-full mb-8 relative ${
+                      simResult.status === 'NORMAL' ? 'bg-white border-green-500 shadow-green-100' :
+                      simResult.status === 'RISKY' ? 'bg-white border-yellow-500 shadow-yellow-100' :
+                      'bg-white border-red-500 shadow-red-100'
                     }`}>
-                      <span className="text-slate-600 mb-2 font-medium tracking-wide z-10">{t.remainingLife}</span>
-                      <span className={`text-7xl font-black z-10 tracking-tighter ${
-                        simResult.status === 'NORMAL' ? 'text-green-700' :
-                        simResult.status === 'RISKY' ? 'text-amber-700' : 
+                      <span className="text-slate-500 mb-2 font-bold uppercase tracking-widest text-[10px]">{t.remainingLife}</span>
+                      <span className={`text-8xl font-black tracking-tighter ${
+                        simResult.status === 'NORMAL' ? 'text-green-600' :
+                        simResult.status === 'RISKY' ? 'text-yellow-600' : 
                         'text-red-700'
                       }`}>
                         {simResult.predicted_rul}
                       </span>
-                      <span className="text-[10px] text-slate-500 mt-2 uppercase tracking-widest z-10">{t.flightCycle}</span>
+                      <span className="text-[10px] text-slate-400 mt-4 uppercase font-black tracking-widest">{t.flightCycle}</span>
                     </div>
 
                     <div className="flex items-center justify-center">
                        {simResult.status === "NORMAL" ? (
-                          <span className="text-sm font-semibold bg-green-100 text-green-700 border border-green-200 px-5 py-2.5 rounded-full flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4" /> {t.statusNormal}
+                          <span className="text-xs font-black bg-green-50 text-green-700 border-2 border-green-200 px-8 py-3.5 rounded-full flex items-center gap-3 uppercase tracking-tighter shadow-lg shadow-green-100">
+                            <CheckCircle className="w-5 h-5" /> {t.statusNormal}
                           </span>
                         ) : (
-                          <span className="text-sm font-semibold bg-red-100 text-red-700 border border-red-200 px-5 py-2.5 rounded-full flex items-center gap-2">
-                            <AlertTriangle className="w-4 h-4" /> {t.statusDanger}
+                          <span className="text-xs font-black bg-red-50 text-red-700 border-2 border-red-200 px-8 py-3.5 rounded-full flex items-center gap-3 uppercase tracking-tighter shadow-lg shadow-red-100">
+                            <AlertTriangle className="w-5 h-5" /> {t.statusDanger}
                           </span>
                         )}
                     </div>
@@ -550,176 +543,174 @@ export default function Home() {
           <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-500" id="report-container">
             <div className="lg:col-span-1 flex flex-col gap-6">
               
-              <div className="glass-panel p-6 flex flex-col gap-4 bg-white border border-slate-100 shadow-lg">
-                <div>
-                  <label className="text-xs text-[#1a237e] tracking-widest uppercase font-bold flex items-center gap-2 mb-3">
-                    <Activity className="w-4 h-4" /> {t.targetMotor}
+              <div className="glass-panel p-8 flex flex-col gap-6 bg-white border border-slate-200 shadow-xl shadow-slate-200/50">
+                <div className="flex flex-col gap-3">
+                  <label className="text-[10px] text-blue-900 tracking-[0.3em] uppercase font-black flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-blue-600" /> {t.targetMotor}
                   </label>
                   <div className="relative">
                     <select
                       value={motorId}
                       onChange={(e) => setMotorId(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-md p-4 text-slate-900 focus:outline-none focus:border-[#1a237e] transition-colors text-xl font-bold text-center shadow-inner appearance-none cursor-pointer"
+                      className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-5 text-[#1A237E] focus:outline-none focus:border-blue-600 transition-all text-2xl font-black text-center shadow-inner cursor-pointer appearance-none"
                     >
                       {Array.from({length: 100}, (_, i) => i + 1).map(num => (
-                        <option key={num} value={num} className="bg-white text-slate-800">{t.motor} #{num}</option>
+                        <option key={num} value={num}>{t.motor} #{num}</option>
                       ))}
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#1a237e]">
-                      <ChevronDown className="w-5 h-5" />
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-blue-900/40">
+                      <ChevronDown className="w-6 h-6" />
                     </div>
                   </div>
                 </div>
                 
                 <button 
                   onClick={fetchPrediction}
-                  className="w-full bg-[#1a237e] hover:bg-blue-800 text-white font-bold py-3.5 rounded-md transition-all shadow-md disabled:opacity-50 mt-2 text-sm uppercase tracking-widest flex items-center justify-center gap-2"
+                  className="w-full bg-[#1A237E] hover:bg-blue-800 text-white font-black py-5 rounded-2xl transition-all shadow-2xl shadow-blue-200 disabled:opacity-50 text-sm tracking-[0.2em] uppercase flex justify-center items-center gap-3"
                   disabled={loading}
                 >
-                  {loading && <Activity className="w-4 h-4 animate-spin" />}
+                  {loading && <Activity className="w-5 h-5 animate-spin" />}
                   {loading ? t.analyzing : t.telemetryBtn}
                 </button>
-                {/* Slow API Warning for Dashboard */}
                 {isTakingLong && loading && (
-                  <div className="mt-2 w-full p-2.5 rounded-md bg-yellow-50 border border-yellow-200 text-yellow-800 text-[10px] text-center italic flex items-center justify-center gap-2 animate-in fade-in zoom-in duration-300 shadow-sm">
-                    <Info className="w-3.5 h-3.5" />
+                  <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 text-xs text-center font-bold italic flex items-center justify-center gap-3 animate-pulse">
+                    <Info className="w-5 h-5" />
                     {t.wakeUpWarning}
                   </div>
                 )}
               </div>
 
-              <div className="glass-panel p-6 flex flex-col items-center border border-slate-100 bg-white shadow-lg">
-                <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-4 border-b border-slate-100 pb-3 w-full text-center flex items-center justify-center gap-2">
-                  <Database className="w-3 h-3"/> {t.fleetStatusTitle}
+              <div className="glass-panel p-6 bg-white border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col items-center">
+                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 w-full justify-center">
+                  <Database className="w-4 h-4 text-blue-600"/> {t.fleetStatusTitle}
                 </h3>
                 <div 
                   onClick={() => setShowImageModal(true)}
-                  className="relative w-full aspect-video rounded flex items-center justify-center overflow-hidden bg-slate-50 border border-slate-200 cursor-pointer hover:border-blue-300 transition-colors group"
+                  className="relative w-full aspect-video rounded-2xl flex items-center justify-center overflow-hidden bg-slate-50 border-2 border-slate-100 cursor-pointer hover:border-blue-200 transition-all group"
                 >
                   <Image 
                     src="/fleet_report.png" 
                     alt="Fleet Overview" 
                     fill 
-                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                    className="object-contain p-2 group-hover:scale-105 transition-transform"
                   />
-                  <div className="absolute inset-0 bg-blue-900/5 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-4 text-center leading-relaxed font-medium uppercase tracking-wider">
+                <p className="text-[10px] text-slate-400 mt-6 text-center leading-relaxed font-bold uppercase tracking-widest">
                   {t.fleetStatusDesc}
                 </p>
               </div>
-
             </div>
 
-            <div className="lg:col-span-2 flex flex-col gap-6 min-w-0 w-full overflow-hidden">
+            <div className="lg:col-span-2 flex flex-col gap-6 min-w-0 w-full">
               {!result ? (
-                <div className="glass-panel flex-1 min-h-[400px] flex items-center justify-center text-slate-400 flex-col gap-4 border-dashed border-2 border-slate-200 hover:border-slate-300 transition-colors w-full bg-white">
-                  <Activity className="w-12 h-12 opacity-20 animate-pulse" />
-                  <p className="text-sm tracking-wide font-medium">{t.waitingData}</p>
+                <div className="glass-panel flex-1 min-h-[500px] flex items-center justify-center text-slate-300 flex-col gap-6 bg-white border-4 border-dashed border-slate-100 rounded-[2.5rem] w-full">
+                  <Activity className="w-20 h-20 opacity-10 animate-pulse" />
+                  <p className="text-xs font-black uppercase tracking-[0.3em]">{t.waitingData}</p>
                 </div>
               ) : (
-                <div className="glass-panel p-6 md:p-8 flex flex-col gap-8 bg-white border border-slate-100 shadow-lg relative overflow-hidden min-w-0 w-full">
-                  
-                  <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-100 relative z-10">
-                    <div className="flex flex-col gap-2">
-                      <div className="text-slate-400 uppercase tracking-widest text-[10px] font-bold flex items-center gap-2">
+                <div className="glass-panel p-6 md:p-10 flex flex-col gap-8 bg-white border border-slate-200 shadow-2xl shadow-slate-300/40 relative overflow-hidden rounded-[2rem] w-full">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-8 border-b border-slate-100 relative z-10">
+                    <div className="flex flex-col gap-3">
+                      <div className="text-slate-400 uppercase tracking-[0.3em] text-[10px] font-black flex items-center gap-2">
                         {t.analyzedUnit}
-                        <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[9px]">ID: {result.motor_id}</span>
+                        <span className="bg-blue-50 text-blue-900 px-3 py-1 rounded-full text-[9px] font-bold border border-blue-100">ID: {result.motor_id}</span>
                       </div>
-                      <div className="text-4xl font-black flex items-center gap-4 text-slate-900">
+                      <div className="text-4xl md:text-5xl font-black flex flex-wrap items-center gap-6 text-[#1A237E]">
                         {t.motor} #{result.motor_id}
                         
                         {result.status === "NORMAL" ? (
-                          <span className="text-[11px] font-bold bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded-full flex items-center gap-1.5">
-                            <CheckCircle className="w-3.5 h-3.5" /> {t.statusNormal}
+                          <span className="text-[10px] font-black bg-green-50 text-green-700 border-2 border-green-200 px-5 py-2 rounded-full flex items-center gap-2 uppercase tracking-tighter">
+                            <CheckCircle className="w-4 h-4" /> {t.statusNormal}
                           </span>
                         ) : (
-                          <span className="text-[11px] font-bold bg-red-50 text-red-700 border border-red-200 px-3 py-1 rounded-full flex items-center gap-1.5">
-                            <AlertTriangle className="w-3.5 h-3.5" /> {t.statusDanger}
+                          <span className="text-[10px] font-black bg-red-50 text-red-700 border-2 border-red-200 px-5 py-2 rounded-full flex items-center gap-2 uppercase tracking-tighter">
+                            <AlertTriangle className="w-4 h-4" /> {t.statusDanger}
                           </span>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-end gap-3">
-                      <button onClick={downloadPDF} disabled={pdfGenerating} className="text-[10px] uppercase tracking-widest font-bold flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-[#1a237e] px-3 py-1.5 rounded transition-colors border border-blue-100">
-                          <ArrowDownToLine className="w-3.5 h-3.5" /> PDF
+                    <div className="flex flex-col items-center md:items-end gap-4">
+                      <button onClick={downloadPDF} disabled={pdfGenerating} className="text-[10px] uppercase tracking-widest font-black flex items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-900 px-5 py-2.5 rounded-xl transition-all border border-blue-200 shadow-sm active:scale-95">
+                          <ArrowDownToLine className="w-4 h-4" /> DOWNLOAD PDF REPORT
                       </button>
 
-                      <div className={`px-6 py-5 rounded-xl border flex flex-col items-center justify-center min-w-[200px] shadow-sm relative overflow-hidden ${
-                        result.status === 'NORMAL' ? 'bg-green-50 border-green-100' :
-                        result.status === 'RISKY' ? 'bg-amber-50 border-amber-100' :
-                        'bg-red-50 border-red-100'
+                      <div className={`px-10 py-6 rounded-3xl border-4 flex flex-col items-center justify-center min-w-[220px] shadow-2xl relative overflow-hidden bg-white ${
+                        result.status === 'NORMAL' ? 'border-green-500 shadow-green-100' :
+                        result.status === 'RISKY' ? 'border-yellow-500 shadow-yellow-100' : 'border-red-600 shadow-red-100'
                       }`}>
-                        <span className="text-slate-600 mb-1 font-medium text-sm tracking-wide">{t.remainingLife}</span>
-                        <span className={`text-6xl font-black tracking-tighter ${
-                          result.status === 'NORMAL' ? 'text-green-700' :
-                          result.status === 'RISKY' ? 'text-amber-700' : 'text-red-700'
+                        <span className="text-slate-500 mb-1 font-bold uppercase tracking-widest text-[10px]">{t.remainingLife}</span>
+                        <span className={`text-7xl font-black tracking-tighter leading-none ${
+                        result.status === 'NORMAL' ? 'text-green-600' :
+                        result.status === 'RISKY' ? 'text-yellow-600' : 'text-red-700'
                         }`}>
                           {result.predicted_rul}
                         </span>
-                        <span className="text-[9px] text-slate-500 mt-1.5 uppercase tracking-widest font-bold">{t.flightCycle}</span>
+                        <span className="text-[10px] text-slate-400 mt-2 uppercase font-black tracking-widest">{t.flightCycle}</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* RECHARTS - SENSOR DEGRADATION PLOT */}
+                  {/* RECHARTS - LIGHT THEME PLOT */}
                   {result.history && result.history.length > 0 && (
-                    <div className="w-full bg-slate-50 rounded-xl border border-slate-100 p-5 mt-2 shadow-inner relative z-10 overflow-hidden min-w-0">
-                       <h3 className="text-xs font-bold text-slate-500 mb-4 flex items-center gap-2 uppercase tracking-widest">
-                         <Activity className="text-[#1a237e] w-3.5 h-3.5" /> {t.chartTitle}
+                    <div className="w-full bg-slate-50 rounded-3xl border border-slate-100 p-6 shadow-inner relative z-10 w-full overflow-hidden">
+                       <h3 className="text-[10px] font-black text-blue-900/60 mb-6 flex items-center gap-2 uppercase tracking-[0.2em]">
+                         <Activity className="text-blue-600 w-4 h-4" /> {t.chartTitle}
                        </h3>
-                       <div className="h-[200px] w-full text-xs min-w-0 overflow-hidden">
-                          <ResponsiveContainer width="99%" height="100%">
+                       <div className="h-[250px] w-full text-[10px] font-bold">
+                          <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={result.history}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                              <XAxis dataKey="cycle" stroke="#94a3b8" tick={{fill: '#64748b'}} tickMargin={10} minTickGap={20} />
-                              <YAxis yAxisId="left" stroke="#3b82f6" tick={{fill: '#64748b'}} domain={['auto', 'auto']} width={40} />
-                              <YAxis yAxisId="right" orientation="right" stroke="#ef4444" tick={{fill: '#64748b'}} domain={['auto', 'auto']} width={40} />
+                              <CartesianGrid strokeDasharray="4 4" stroke="#e2e8f0" vertical={false} />
+                              <XAxis dataKey="cycle" stroke="#1e293b" tick={{fill: '#64748b'}} tickMargin={10} minTickGap={30} />
+                              <YAxis yAxisId="left" stroke="#1e293b" tick={{fill: '#64748b'}} width={40} />
+                              <YAxis yAxisId="right" orientation="right" stroke="#1e293b" tick={{fill: '#64748b'}} width={40} />
                               <Tooltip 
-                                labelStyle={{color: '#9ca3af', marginBottom: '4px', fontSize: '10px'}}
+                                contentStyle={{backgroundColor: '#fff', border: '2px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)'}}
+                                itemStyle={{fontSize: '11px', fontWeight: 'bold'}}
+                                labelStyle={{color: '#64748b', fontSize: '10px', marginBottom: '4px'}}
                               />
-                              <Line yAxisId="left" type="monotone" dataKey="s2" name="LPC Outlet T." stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{r: 4}} />
-                              <Line yAxisId="right" type="monotone" dataKey="s3" name="HPC Outlet T." stroke="#ef4444" strokeWidth={2} dot={false} activeDot={{r: 4}} />
+                              <Line yAxisId="left" type="monotone" dataKey="s2" name="LPC Temp" stroke="#2563eb" strokeWidth={4} dot={false} activeDot={{r: 6}} />
+                              <Line yAxisId="right" type="monotone" dataKey="s3" name="HPC Temp" stroke="#dc2626" strokeWidth={4} dot={false} activeDot={{r: 6}} />
                             </LineChart>
                           </ResponsiveContainer>
                        </div>
                        
-                       {/* GRAFİK BİLGİ KUTUSU */}
-                       <div className="mt-4 p-3 rounded-lg bg-blue-900/10 border border-blue-900/30 flex gap-3">
-                         <Info className="w-5 h-5 text-blue-400 shrink-0" />
-                         <div>
-                           <div className="text-[10px] font-bold text-blue-300 uppercase tracking-widest mb-1">{t.chartInfoTitle}</div>
-                           <div className="text-[11px] text-slate-400 leading-relaxed font-medium">{t.chartInfoDesc}</div>
+                       <div className="mt-8 p-5 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row gap-4 shadow-sm items-center sm:items-start text-center sm:text-left">
+                         <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                           <Info className="w-6 h-6 text-blue-600" />
+                         </div>
+                         <div className="flex-1">
+                           <div className="text-xs font-black text-[#1A237E] uppercase tracking-wider mb-1">{t.chartInfoTitle}</div>
+                           <div className="text-xs text-slate-500 leading-relaxed font-medium">{t.chartInfoDesc}</div>
                          </div>
                        </div>
                     </div>
                   )}
 
-                  <div className="relative z-10">
-                    <h3 className="text-[11px] font-bold text-slate-300 mb-4 flex items-center gap-2 uppercase tracking-widest">
-                      <Database className="text-neonCyan w-3.5 h-3.5" /> {t.matrixTitle}
+                  <div className="relative z-10 w-full">
+                    <h3 className="text-[10px] font-black text-blue-900/60 mb-6 flex items-center gap-2 uppercase tracking-[0.2em]">
+                      <Database className="text-blue-600 w-4 h-4" /> {t.matrixTitle}
                     </h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
                       {Object.entries(result.sensors).map(([key, sensor]: [string, any]) => (
                         <div 
                           key={key} 
-                          className={`p-3 rounded-lg border flex flex-col relative overflow-hidden transition-all group ${
+                          className={`p-4 rounded-2xl border-2 flex flex-col relative transition-all group ${
                             sensor.status === "Danger" 
-                            ? "bg-red-950/20 border-red-900/50 hover:bg-red-950/30 shadow-[inset_0_0_15px_rgba(239,68,68,0.05)]" 
-                            : "bg-[#12131f] border-slate-800 hover:border-slate-700 hover:bg-[#161826]"
+                            ? "bg-red-50 border-red-200 shadow-lg shadow-red-100/50" 
+                            : "bg-slate-50 border-slate-100 hover:border-blue-200 hover:bg-white hover:shadow-xl"
                           }`}
                         >
                           {sensor.status === "Danger" && (
-                            <div className="absolute top-0 right-0 w-1.5 h-1.5 rounded-full bg-red-500 m-2.5 shadow-[0_0_8px_rgba(239,68,68,1)] animate-ping"></div>
+                            <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-red-600 m-3 animate-ping"></div>
                           )}
-                          <span className="text-[9px] font-bold text-neonCyan uppercase tracking-widest">{key}</span>
-                          <span className="text-[11px] text-slate-400 font-medium mt-0.5 mb-2 line-clamp-1" title={sensor.name}>{sensor.name}</span>
-                          <div className="flex items-baseline gap-1 mt-auto">
-                            <span className={`text-lg font-black tracking-tight ${sensor.status === "Danger" ? "text-red-400" : "text-slate-200 group-hover:text-white"}`}>
+                          <span className="text-[10px] font-black text-blue-900 uppercase tracking-widest mb-1">{key}</span>
+                          <span className="text-[10px] text-slate-400 font-bold uppercase truncate mb-3" title={sensor.name}>{sensor.name}</span>
+                          <div className="flex items-baseline gap-1.5 mt-auto border-t border-slate-200/50 pt-2">
+                            <span className={`text-xl font-black tracking-tight ${sensor.status === "Danger" ? "text-red-700" : "text-slate-800"}`}>
                               {sensor.value}
                             </span>
-                            <span className="text-[9px] font-medium text-slate-500">{sensor.unit}</span>
+                            <span className="text-[9px] font-bold text-slate-400 uppercase">{sensor.unit}</span>
                           </div>
                         </div>
                       ))}
@@ -731,30 +722,17 @@ export default function Home() {
             </div>
           </div>
         )}
-        {/* FOOTER BRANDING INSIDE SCROLL - Centered and Spaced */}
-        <div className="w-full max-w-7xl flex items-center justify-center py-12 mt-12 border-t border-slate-800/50 text-slate-600 text-[10px] font-bold tracking-[0.3em] uppercase">
-          Engineered by <span className="text-neonCyan ml-1.5 mr-3">GÖKDENİZ ERTEN</span> | <span className="ml-3">NASA Predictive Maintenance Network © 2026</span>
+        <div className="w-full max-w-7xl flex flex-col md:flex-row items-center justify-between py-12 mt-12 border-t border-slate-200 text-slate-400 text-[10px] font-black tracking-[0.3em] uppercase gap-6 text-center">
+          <div>Engineered by <span className="text-[#1A237E] font-black">GÖKDENİZ ERTEN</span></div>
+          <div className="text-slate-300">NASA EXPERIMENTAL SYSTEMS · AI PREDICTIVE NETWORK © 2026</div>
         </div>
       </div>
 
       {showImageModal && (
-        <div 
-          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 md:p-12 cursor-zoom-out backdrop-blur-md"
-          onClick={() => setShowImageModal(false)}
-        >
-          <div className="relative w-full h-full max-w-6xl max-h-[90vh]">
-            <Image 
-              src="/fleet_report.png" 
-              alt="Fleet Overview Fullscreen" 
-              fill 
-              className="object-contain"
-            />
-            <button 
-              className="absolute -top-4 -right-4 bg-red-500/80 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg hover:bg-red-500 transition-colors border border-white/20"
-              onClick={(e) => { e.stopPropagation(); setShowImageModal(false); }}
-            >
-              X
-            </button>
+        <div className="fixed inset-0 z-[100] bg-[#1A237E]/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-12 cursor-zoom-out" onClick={() => setShowImageModal(false)}>
+          <div className="relative w-full h-full max-w-6xl max-h-[90vh] animate-in zoom-in-95 duration-300 shadow-2xl">
+            <Image src="/fleet_report.png" alt="Fleet Overview" fill className="object-contain" />
+            <button className="absolute -top-6 -right-6 bg-white text-blue-900 w-12 h-12 rounded-full flex items-center justify-center font-black shadow-2xl hover:scale-110 transition-transform text-xl border-4 border-blue-900" onClick={(e) => { e.stopPropagation(); setShowImageModal(false); }}>✕</button>
           </div>
         </div>
       )}
