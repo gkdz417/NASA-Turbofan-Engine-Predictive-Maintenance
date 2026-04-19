@@ -229,7 +229,7 @@ export default function Home() {
               <span className="text-blue-600">{t.landingTitle2}</span>
             </h1>
             
-            <p className="text-sm md:text-xl text-slate-600 max-w-3xl mb-10 leading-relaxed font-medium">
+            <p className="text-sm md:text-xl text-[#1E293B] max-w-3xl mb-10 leading-relaxed font-bold">
               {t.landingDesc}
             </p>
 
@@ -375,8 +375,9 @@ export default function Home() {
 
         {/* ===================== TAB CONTENT: DOCS ===================== */}
         {activeTab === "DOCS" && (
-          <div className="w-full max-w-7xl glass-panel p-6 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700 bg-white shadow-2xl relative border border-slate-200">
-            <div className="relative z-10">
+          <div className="w-full max-w-7xl glass-panel animate-in fade-in slide-in-from-bottom-4 duration-700 bg-white shadow-2xl relative border border-slate-200 overflow-hidden rounded-[2.5rem]">
+            {/* Header Section */}
+            <div className="p-8 md:p-12 bg-slate-50 border-b border-slate-200">
               <div className="mb-10 border-b border-slate-100 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
                  <div>
                    <div className="text-blue-600 uppercase tracking-[0.3em] font-black text-[10px] mb-3 flex items-center gap-2">
@@ -393,45 +394,54 @@ export default function Home() {
                  </div>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-1 bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:border-blue-200 transition-all duration-300 group shadow-sm flex flex-col">
+              <div className="p-8 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-1 bg-white p-8 rounded-3xl border-2 border-slate-100 hover:border-blue-300 transition-all duration-300 group shadow-md flex flex-col">
                   <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
                     <Database className="w-6 h-6"/>
                   </div>
-                  <h3 className="text-[#1A237E] font-black mb-4 text-xl tracking-tight">{t.whatIsCmapss}</h3>
-                  <p className="text-slate-600 leading-relaxed text-sm font-medium">{t.cmapssDesc}</p>
+                  <h3 className="text-[#1A237E] font-black mb-4 text-xl tracking-tight uppercase">{t.whatIsCmapss}</h3>
+                  <p className="text-slate-800 leading-relaxed text-sm font-bold">{t.cmapssDesc}</p>
                 </div>
 
-                <div className="lg:col-span-2 bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:border-blue-200 transition-all duration-300 group shadow-sm relative overflow-hidden">
-                  <div className="flex flex-col md:flex-row gap-8 relative z-10 h-full">
+                <div className="lg:col-span-2 bg-white p-8 rounded-3xl border-2 border-slate-100 hover:border-blue-300 transition-all duration-300 group shadow-md relative overflow-hidden">
+                  <div className="flex flex-col xl:flex-row gap-8 relative z-10 h-full">
                     <div className="flex-1">
                       <div className="w-12 h-12 rounded-2xl bg-[#1A237E] text-white flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
                         <Cpu className="w-6 h-6"/>
                       </div>
-                      <h3 className="text-[#1A237E] font-black mb-4 text-xl tracking-tight">{t.howItWorks}</h3>
-                      <p className="text-slate-600 leading-relaxed text-sm font-medium mb-6">{t.howItWorksDesc}</p>
+                      <h3 className="text-[#1A237E] font-black mb-4 text-xl tracking-tight uppercase">{t.howItWorks}</h3>
+                      <p className="text-slate-800 leading-relaxed text-sm font-bold mb-6">{t.howItWorksDesc}</p>
                     </div>
 
-                    <div className="flex-1 bg-white rounded-2xl border border-slate-200 p-6 font-mono text-[10px] sm:text-xs text-slate-500 relative shadow-inner overflow-hidden flex flex-col justify-center gap-1.5 self-stretch">
-                       <div className="text-blue-600 font-bold mb-2">// LSTM NEURAL NETWORK</div>
-                       <div className="text-slate-400">model = Sequential()</div>
-                       <div className="text-[#1A237E] font-semibold">model.add(LSTM(units=100, sequences=True))</div>
-                       <div className="text-blue-500">model.add(Dropout(0.2))</div>
-                       <div className="text-[#1A237E] font-semibold">model.add(LSTM(units=50))</div>
-                       <div className="text-[#1A237E] font-semibold">model.add(Dense(units=1))</div>
-                       <div className="text-green-600 mt-2 font-bold"># AI PREDICTION OUTPUT</div>
+                    <div className="flex-1 bg-slate-900 rounded-2xl border border-slate-800 p-6 font-mono text-[10px] sm:text-xs text-white relative shadow-2xl overflow-hidden flex flex-col gap-1.5 self-stretch min-h-[220px]">
+                       <div className="flex items-center gap-2 mb-3 border-b border-white/10 pb-2">
+                         <div className="flex gap-1">
+                           <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+                           <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+                           <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+                         </div>
+                         <span className="text-[9px] text-white/40 font-bold ml-2">lstm_model.py</span>
+                       </div>
+                       <div className="text-blue-400 font-bold mb-1 italic"># LSTM NEURAL NETWORK ARCHITECTURE</div>
+                       <div className="text-pink-400">model <span className="text-white">=</span> Sequential()</div>
+                       <div className="text-white">model.<span className="text-yellow-300">add</span>(LSTM(units<span className="text-white">=</span><span className="text-orange-400">100</span>, sequences<span className="text-white">=</span><span className="text-orange-400">True</span>))</div>
+                       <div className="text-blue-300 italic">model.<span className="text-yellow-300">add</span>(Dropout(<span className="text-orange-400">0.2</span>))</div>
+                       <div className="text-white">model.<span className="text-yellow-300">add</span>(LSTM(units<span className="text-white">=</span><span className="text-orange-400">50</span>))</div>
+                       <div className="text-white">model.<span className="text-yellow-300">add</span>(Dense(units<span className="text-white">=</span><span className="text-orange-400">1</span>))</div>
+                       <div className="text-green-400 mt-2 font-bold italic">// ENGINE RUL PREDICTION</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="lg:col-span-3 bg-blue-900 p-8 rounded-3xl border border-blue-950 transition-all flex flex-col md:flex-row items-center gap-8 shadow-2xl relative overflow-hidden group">
-                  <div className="shrink-0 w-20 h-20 rounded-full bg-blue-800 flex items-center justify-center border-4 border-blue-700/50 shadow-xl group-hover:scale-110 transition-transform">
+                <div className="lg:col-span-3 bg-[#1A237E] p-8 rounded-3xl border border-blue-950 transition-all flex flex-col md:flex-row items-center gap-8 shadow-2xl relative overflow-hidden group">
+                  <div className="shrink-0 w-20 h-20 rounded-full bg-blue-700/50 flex items-center justify-center border-4 border-white/10 shadow-xl group-hover:scale-110 transition-transform">
                     <Activity className="text-white w-10 h-10" />
                   </div>
-                  <div className="text-center md:text-left">
+                  <div className="text-center md:text-left relative z-10">
                     <h3 className="text-white font-black mb-2 text-2xl tracking-tight leading-none uppercase">{t.why100}</h3>
-                    <p className="text-blue-100 leading-relaxed text-base font-medium max-w-4xl opacity-80">{t.why100Desc}</p>
+                    <p className="text-blue-100 leading-relaxed text-base font-bold max-w-4xl opacity-90">{t.why100Desc}</p>
                   </div>
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none"></div>
                 </div>
               </div>
             </div>
@@ -549,17 +559,17 @@ export default function Home() {
                   <label className="text-[10px] text-blue-900 tracking-[0.3em] uppercase font-black flex items-center gap-2">
                     <Activity className="w-4 h-4 text-blue-600" /> {t.targetMotor}
                   </label>
-                  <div className="relative">
+                  <div className="relative group">
                     <select
                       value={motorId}
                       onChange={(e) => setMotorId(e.target.value)}
-                      className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-5 text-[#1A237E] focus:outline-none focus:border-blue-600 transition-all text-2xl font-black text-center shadow-inner cursor-pointer appearance-none"
+                      className="w-full bg-slate-100 border-2 border-slate-200 rounded-2xl p-5 text-[#1A237E] focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-2xl font-black text-center shadow-md cursor-pointer appearance-none group-hover:border-blue-400"
                     >
                       {Array.from({length: 100}, (_, i) => i + 1).map(num => (
                         <option key={num} value={num}>{t.motor} #{num}</option>
                       ))}
                     </select>
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-blue-900/40">
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-blue-900/60 transition-transform group-hover:translate-y-[-40%]">
                       <ChevronDown className="w-6 h-6" />
                     </div>
                   </div>
@@ -720,22 +730,22 @@ export default function Home() {
                       {Object.entries(result.sensors).map(([key, sensor]: [string, any]) => (
                         <div 
                           key={key} 
-                          className={`p-4 rounded-2xl border-2 flex flex-col relative transition-all group ${
+                          className={`p-5 rounded-2xl border-2 flex flex-col relative transition-all group shadow-sm ${
                             sensor.status === "Danger" 
-                            ? "bg-red-50 border-red-200 shadow-lg shadow-red-100/50" 
-                            : "bg-slate-50 border-slate-100 hover:border-blue-200 hover:bg-white hover:shadow-xl"
+                            ? "bg-red-50 border-red-200 shadow-lg shadow-red-100/50 scale-105 z-20" 
+                            : "bg-slate-100/60 border-slate-200 hover:border-blue-400 hover:bg-white hover:shadow-xl hover:-translate-y-1"
                           }`}
                         >
                           {sensor.status === "Danger" && (
                             <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-red-600 m-3 animate-ping"></div>
                           )}
                           <span className="text-[10px] font-black text-blue-900 uppercase tracking-widest mb-1">{key}</span>
-                          <span className="text-[10px] text-slate-400 font-bold uppercase truncate mb-3" title={sensor.name}>{sensor.name}</span>
-                          <div className="flex items-baseline gap-1.5 mt-auto border-t border-slate-200/50 pt-2">
-                            <span className={`text-xl font-black tracking-tight ${sensor.status === "Danger" ? "text-red-700" : "text-slate-800"}`}>
+                          <span className="text-[10px] text-slate-500 font-black uppercase truncate mb-3" title={sensor.name}>{sensor.name}</span>
+                          <div className="flex items-baseline gap-1.5 mt-auto border-t border-slate-300/50 pt-3">
+                            <span className={`text-2xl font-black tracking-tight ${sensor.status === "Danger" ? "text-red-700" : "text-slate-900"}`}>
                               {sensor.value}
                             </span>
-                            <span className="text-[9px] font-bold text-slate-400 uppercase">{sensor.unit}</span>
+                            <span className="text-[10px] font-black text-slate-500 uppercase">{sensor.unit}</span>
                           </div>
                         </div>
                       ))}
