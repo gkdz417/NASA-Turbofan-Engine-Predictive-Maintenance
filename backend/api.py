@@ -2,7 +2,6 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import tensorflow as tf
-from tensorflow.keras.models import load_model
 import numpy as np
 import pandas as pd
 import joblib
@@ -54,8 +53,11 @@ def load_ai_artifacts():
         base_path = ".."
         
         # 1. Modeli ve Scaler'ı yükle
-        print("🧠 AI Modeli Yükleniyor...")
-        MODEL = load_model(f"{base_path}/nasa_jet_engine_model.keras")
+        print("🧠 AI Modeli Yükleniyor... (TFLite)")
+        # TFLite Interpreter kullanımı (Çok düşük RAM kullanır)
+        MODEL = tf.lite.Interpreter(model_path=f"{base_path}/nasa_jet_engine_model.tflite")
+        MODEL.allocate_tensors()
+        
         SCALER = joblib.load(f"{base_path}/scaler.pkl")
         FEATURE_COLS = joblib.load(f"{base_path}/feature_cols.pkl")
         DROP_COLS = joblib.load(f"{base_path}/drop_cols.pkl")
@@ -150,8 +152,16 @@ async def get_prediction(motor_id: int):
     if X_input is None:
         raise HTTPException(status_code=404, detail=f"Motor {motor_id} bulunamadı.")
         
-    # AI Tahmini
-    predicted_rul = float(MODEL.predict(X_input, verbose=0).flatten()[0])
+    # AI Tahmini (TFLite)
+    input_details = MODEL.get_input_details()
+    output_details = MODEL.get_output_details()
+    
+    # Veri tipini float32 yap
+    X_input = X_input.astype(np.float32)
+    MODEL.set_tensor(input_details[0]['index'], X_input)
+    MODEL.invoke()
+    
+    predicted_rul = float(MODEL.get_tensor(output_details[0]['index']).flatten()[0])
     
     # Gerçek Değeri Bul
     real_rul = float(REAL_RUL_DATA.iloc[motor_id - 1]['RUL'])
@@ -235,8 +245,16 @@ async def predict_custom_simulation(data: CustomSimulationData):
     
     X_input = v.reshape(1, SEQUENCE_LENGTH, len(feature_cols))
     
-    # AI Tahmini
-    predicted_rul = float(MODEL.predict(X_input, verbose=0).flatten()[0])
+    # AI Tahmini (TFLite)
+    input_details = MODEL.get_input_details()
+    output_details = MODEL.get_output_details()
+    
+    # Veri tipini float32 yap
+    X_input = X_input.astype(np.float32)
+    MODEL.set_tensor(input_details[0]['index'], X_input)
+    MODEL.invoke()
+    
+    predicted_rul = float(MODEL.get_tensor(output_details[0]['index']).flatten()[0])
     
     status = "NORMAL"
     if predicted_rul < 20: status = "URGENT"
